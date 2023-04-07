@@ -1,4 +1,4 @@
-package com.example.utnfinaljava.repositories;
+/* package com.example.utnfinaljava.repositories;
 
 import java.util.Optional;
 
@@ -11,3 +11,4 @@ import com.example.utnfinaljava.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
     Optional<Usuario> findOneByEmail(String email);
 }
+ */

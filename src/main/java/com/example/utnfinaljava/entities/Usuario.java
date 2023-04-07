@@ -8,11 +8,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Data
+/* @Data
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuarios") */
 public class Usuario {
-    @Id
+/*     @Id
     @Column(name = "id_usuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
@@ -23,5 +23,5 @@ public class Usuario {
     @Column(name = "email")
     public String email;
     @Column(name = "clave")
-    public String clave;
+    public String clave; */
 }

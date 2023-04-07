@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UtnFinalJavaApplication {
 
 	public static void main(String[] args) {
-		System.out.println("pass: " + new BCryptPasswordEncoder().encode("1234"));
 		SpringApplication.run(UtnFinalJavaApplication.class, args);
 		
 	}
