@@ -1,5 +1,8 @@
 package com.example.utnfinaljava.entities;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +23,7 @@ public class Localidad {
     @Column(name = "ciudad")
     private String ciudad;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "cod_provincia", referencedColumnName = "cod_provincia")
     private Provincia Provincia;
 }
