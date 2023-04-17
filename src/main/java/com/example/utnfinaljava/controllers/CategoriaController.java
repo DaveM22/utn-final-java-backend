@@ -34,10 +34,10 @@ public class CategoriaController {
 
 
     @GetMapping("/categorias")
-    public ResponseEntity<ResponseRequest> GetCategorias(){
+    public ResponseRequest GetCategorias(){
         ResponseRequest response = new ResponseRequest();
         response.setPayload(categoriaService.listaCategorias());
-        return ResponseEntity.ok(response);
+        return response;
     }
 
     @PostMapping("/categorias")

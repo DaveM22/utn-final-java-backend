@@ -1,10 +1,12 @@
 package com.example.utnfinaljava.interfaces;
 
 import java.util.List;
+
+import com.example.utnfinaljava.dtos.CategoriaDto;
 import com.example.utnfinaljava.entities.Categoria;
 
 public interface CategoriaService {
-    public List<Categoria> listaCategorias();
+    public List<CategoriaDto> listaCategorias();
 
     public Categoria guardarCategoria(Categoria categoria);
 

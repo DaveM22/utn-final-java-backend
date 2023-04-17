@@ -2,12 +2,13 @@ package com.example.utnfinaljava.interfaces;
 
 import java.util.List;
 
-import com.example.utnfinaljava.entities.Producto;
+import com.example.utnfinaljava.dtos.ProductoDto;
+
 
 public interface ProductoService {
-    public List<Producto> listaProductos();
+    public List<ProductoDto> listaProductos();
 
-    public Producto guardarProducto(Producto categoria);
+    public ProductoDto guardarProducto(ProductoDto producto);
 
-    public void borrarProducto(Long id);
+    public void borrarProducto(Long id) throws Exception;
 }
