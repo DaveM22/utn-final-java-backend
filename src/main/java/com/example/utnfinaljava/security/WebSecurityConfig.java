@@ -22,7 +22,11 @@ public class WebSecurityConfig {
         .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/**").permitAll()
-                .and().build();
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic()
+                .and()
+                .build();
     }
 
     @Bean
