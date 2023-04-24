@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.utnfinaljava.entities.Provincia;
-import com.example.utnfinaljava.repositories.ProvinciaRepository;
+import com.example.utnfinaljava.entities.Province;
+import com.example.utnfinaljava.repositories.ProvinceRepository;
 
 @Service
 public class ProvinciaService {
     
     @Autowired
-    private ProvinciaRepository provinciaRepository;
+    private ProvinceRepository provinciaRepository;
 
-    public List<Provincia> GetProvincias(){
+    public List<Province> GetProvincias(){
         return provinciaRepository.findAll();
     }
 }

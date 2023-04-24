@@ -8,22 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.utnfinaljava.dtos.CategoriaDto;
-import com.example.utnfinaljava.entities.Categoria;
-import com.example.utnfinaljava.interfaces.CategoriaService;
-import com.example.utnfinaljava.repositories.CategoriaRepository;
+import com.example.utnfinaljava.entities.Category;
+import com.example.utnfinaljava.interfaces.CategoryService;
+import com.example.utnfinaljava.repositories.CategoryRepository;
 
 @Service
-public class CategoriaServiceImpl implements CategoriaService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoryRepository categoriaRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Override
     public List<CategoriaDto> listaCategorias() {
-        List<Categoria> entities = categoriaRepository.findAll();
+        List<Category> entities = categoriaRepository.findAll();
         List<CategoriaDto> dtos = entities.stream()
         .map(a -> modelMapper.map(a, CategoriaDto.class))
         .collect(Collectors.toList());
@@ -31,7 +31,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public Categoria guardarCategoria(Categoria categoria) {
+    public Category guardarCategoria(Category categoria) {
         return categoriaRepository.save(categoria);
     }
 

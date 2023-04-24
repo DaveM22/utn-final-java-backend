@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.example.utnfinaljava.dtos.AuthenticationRequest;
 import com.example.utnfinaljava.dtos.AuthenticationResponse;
 import com.example.utnfinaljava.dtos.RegisterRequest;
-import com.example.utnfinaljava.entities.Usuario;
-import com.example.utnfinaljava.repositories.UsuarioRepository;
+import com.example.utnfinaljava.entities.User;
+import com.example.utnfinaljava.repositories.UserRepository;
 
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository usuarioRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -29,7 +29,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse Register(RegisterRequest request){
-        var user = Usuario.builder()
+        var user = User.builder()
             .email(request.getEmail())
             .clave(passwordEncoder.encode(request.getPassword()))
             .nombreUsuario(request.getName())

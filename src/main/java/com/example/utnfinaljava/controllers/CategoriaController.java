@@ -1,5 +1,6 @@
 package com.example.utnfinaljava.controllers;
 
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.utnfinaljava.dtos.CategoriaDto;
-import com.example.utnfinaljava.entities.Categoria;
-import com.example.utnfinaljava.interfaces.CategoriaService;
+import com.example.utnfinaljava.entities.Category;
+import com.example.utnfinaljava.interfaces.CategoryService;
 import com.example.utnfinaljava.responses.ResponseRequest;
 
 import jakarta.validation.Valid;
@@ -27,7 +28,7 @@ import jakarta.validation.Valid;
 public class CategoriaController {
     
     @Autowired
-    private CategoriaService categoriaService;
+    private CategoryService categoriaService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -43,7 +44,7 @@ public class CategoriaController {
     @PostMapping("/categorias")
     public ResponseEntity<ResponseRequest> CrearCategoria(@Valid @RequestBody CategoriaDto categoria, BindingResult result  ){
         ResponseRequest response = new ResponseRequest();
-        Categoria loc = modelMapper.map(categoria, Categoria.class);
+        Category loc = modelMapper.map(categoria, Category.class);
         categoriaService.guardarCategoria(loc);
         response.setMessage("Se ha creado la categoría de manera exitosa");
         response.setPayload(loc);
@@ -53,7 +54,7 @@ public class CategoriaController {
     @PutMapping("/categorias")
     public ResponseEntity<ResponseRequest> EditarCategorias(@Valid @RequestBody CategoriaDto categoria, BindingResult result  ){
         ResponseRequest response = new ResponseRequest();
-        Categoria loc = modelMapper.map(categoria, Categoria.class);
+        Category loc = modelMapper.map(categoria, Category.class);
         categoriaService.guardarCategoria(loc);
         response.setMessage("Se han guardado los cambios de la categoría de manera exitosa");
         response.setPayload(loc);

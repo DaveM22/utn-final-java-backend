@@ -27,5 +27,5 @@ public class Persona {
     private String paginaWeb;
     @OneToOne
     @JoinColumn(name = "cod_postal", referencedColumnName = "cod_postal")
-    private Localidad localidad;
+    private Location localidad;
 }

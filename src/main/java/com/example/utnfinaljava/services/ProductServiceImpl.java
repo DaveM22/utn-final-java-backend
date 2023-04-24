@@ -8,22 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.utnfinaljava.dtos.ProductoDto;
-import com.example.utnfinaljava.entities.Producto;
-import com.example.utnfinaljava.entities.ProductoProveedor;
-import com.example.utnfinaljava.interfaces.ProductoService;
-import com.example.utnfinaljava.repositories.ProductoProveedorRepository;
+import com.example.utnfinaljava.entities.Product;
+import com.example.utnfinaljava.entities.ProductSupplier;
+import com.example.utnfinaljava.interfaces.ProductService;
+import com.example.utnfinaljava.repositories.ProductSupplierRepository;
 import com.example.utnfinaljava.repositories.ProductoRepository;
 
 import io.jsonwebtoken.lang.Arrays;
 
 @Service
-public class ProductoServiceImpl implements ProductoService {
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductoRepository productoRepository;
 
     @Autowired
-    private ProductoProveedorRepository proveedorRepository;
+    private ProductSupplierRepository proveedorRepository;
     
     @Autowired
     private ModelMapper modelMapper;
@@ -40,15 +40,15 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoDto guardarProducto(ProductoDto producto) {
-        Producto entity = modelMapper.map(producto, Producto.class);
-        Producto nuevoProducto =  this.productoRepository.save(entity);
+        Product entity = modelMapper.map(producto, Product.class);
+        Product nuevoProducto =  this.productoRepository.save(entity);
         ProductoDto dto = modelMapper.map(nuevoProducto, ProductoDto.class);
         return dto;
     }
 
     @Override
     public void borrarProducto(Long id) throws Exception {
-        List<ProductoProveedor> productoProveedores = proveedorRepository.findByProductoId(id);
+        List<ProductSupplier> productoProveedores = proveedorRepository.findByProductoId(id);
         if(!productoProveedores.isEmpty()){
             throw new Exception("Error al eliminar el producto, asegurese de eliminar todas los proveedores, precios y detalles de pedidos vinculados al producto y vuelva a intentarlo");
         }

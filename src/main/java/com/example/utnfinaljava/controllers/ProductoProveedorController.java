@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.utnfinaljava.dtos.ProductoProveedorDto;
 import com.example.utnfinaljava.dtos.ProductoProveedorListaDto;
-import com.example.utnfinaljava.interfaces.ProductoProveedorService;
+import com.example.utnfinaljava.interfaces.ProductSupplierService;
 import com.example.utnfinaljava.responses.ResponseRequest;
-import com.example.utnfinaljava.services.ProductoProveedorServiceImpl;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -22,7 +22,7 @@ import com.example.utnfinaljava.services.ProductoProveedorServiceImpl;
 public class ProductoProveedorController {
     
     @Autowired
-    ProductoProveedorService productoProveedorServiceImpl;
+    ProductSupplierService productoProveedorServiceImpl;
 
 
     @GetMapping("/productos-proveedores/{idProducto}")

@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "provincias")
-public class Provincia {
+public class Province {
     @Id
     @Column(name = "cod_provincia")
     public Long codigo;

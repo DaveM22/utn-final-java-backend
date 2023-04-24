@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.utnfinaljava.dtos.ProductoDto;
 
 
-public interface ProductoService {
+public interface ProductService {
     public List<ProductoDto> listaProductos();
 
     public ProductoDto guardarProducto(ProductoDto producto);

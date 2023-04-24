@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.utnfinaljava.dtos.LocalidadDto;
-import com.example.utnfinaljava.entities.Localidad;
+import com.example.utnfinaljava.entities.Location;
 import com.example.utnfinaljava.responses.ResponseRequest;
-import com.example.utnfinaljava.services.LocalidadService;
+import com.example.utnfinaljava.services.LocationService;
 
 import jakarta.validation.Valid;
 
@@ -30,13 +30,13 @@ import jakarta.validation.Valid;
 public class LocalidadController {
 
     @Autowired
-    private LocalidadService localidadService;
+    private LocationService localidadService;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping("/localidades")
-    public List<Localidad> GetLocalidades(){
+    public List<Location> GetLocalidades(){
         return localidadService.ListaLocalidades();
     }
 
@@ -45,15 +45,15 @@ public class LocalidadController {
         if(result.hasErrors()){
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Localidad loc = modelMapper.map(localidad, Localidad.class);
+        Location loc = modelMapper.map(localidad, Location.class);
         localidadService.GuardarLocalidad(loc);
         return new ResponseEntity<String>("La localidad se ha creado correctamente",HttpStatus.OK);
     }
 
     @PutMapping("/localidades")
     @ResponseBody
-    public ResponseRequest EditarLocalidad(@RequestBody Localidad localidad){
-        Localidad entity = localidadService.GuardarLocalidad(localidad);
+    public ResponseRequest EditarLocalidad(@RequestBody Location localidad){
+        Location entity = localidadService.GuardarLocalidad(localidad);
         LocalidadDto dto = modelMapper.map(entity, LocalidadDto.class);
         return new ResponseRequest("","Se ha modificado la localidad correctamente", dto);
     }

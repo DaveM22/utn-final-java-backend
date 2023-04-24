@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "localidades")
-public class Localidad {
+public class Location {
     @Id
     @Column(name = "cod_postal")
     private Long codigo;
@@ -21,5 +21,5 @@ public class Localidad {
 
     @OneToOne
     @JoinColumn(name = "cod_provincia", referencedColumnName = "cod_provincia")
-    private Provincia Provincia;
+    private Province Provincia;
 }

@@ -7,22 +7,22 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.utnfinaljava.dtos.ProvinciaDto;
-import com.example.utnfinaljava.entities.Provincia;
-import com.example.utnfinaljava.interfaces.ProvinciaService;
-import com.example.utnfinaljava.repositories.ProvinciaRepository;
+import com.example.utnfinaljava.entities.Province;
+import com.example.utnfinaljava.interfaces.ProvinceService;
+import com.example.utnfinaljava.repositories.ProvinceRepository;
 
-public class ProvinciaServiceImpl implements ProvinciaService {
+public class ProvinceServiceImpl implements ProvinceService {
 
 
     @Autowired
-    ProvinciaRepository provinciaRepository;
+    ProvinceRepository provinciaRepository;
 
     @Autowired
     ModelMapper modelMapper;
     
     @Override
     public List<ProvinciaDto> ListaProvincias() {
-        List<Provincia> entities = provinciaRepository.findAll();
+        List<Province> entities = provinciaRepository.findAll();
         List<ProvinciaDto> dtos = entities.stream()
         .map(a -> modelMapper.map(a, ProvinciaDto.class))
         .collect(Collectors.toList());

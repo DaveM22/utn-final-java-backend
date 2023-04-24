@@ -4,7 +4,7 @@ package com.example.utnfinaljava.entities.claves_compuestas;
 import java.io.Serializable;
 
 import com.example.utnfinaljava.entities.Persona;
-import com.example.utnfinaljava.entities.Producto;
+import com.example.utnfinaljava.entities.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;

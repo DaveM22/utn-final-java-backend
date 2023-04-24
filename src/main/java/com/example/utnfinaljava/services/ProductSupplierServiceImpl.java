@@ -12,18 +12,18 @@ import org.springframework.stereotype.Service;
 import com.example.utnfinaljava.dtos.ProductoDto;
 import com.example.utnfinaljava.dtos.ProductoProveedorDto;
 import com.example.utnfinaljava.dtos.ProductoProveedorListaDto;
-import com.example.utnfinaljava.entities.Producto;
-import com.example.utnfinaljava.entities.ProductoProveedor;
+import com.example.utnfinaljava.entities.Product;
+import com.example.utnfinaljava.entities.ProductSupplier;
 import com.example.utnfinaljava.entities.claves_compuestas.ProductoProveedorId;
-import com.example.utnfinaljava.interfaces.ProductoProveedorService;
-import com.example.utnfinaljava.repositories.ProductoProveedorRepository;
+import com.example.utnfinaljava.interfaces.ProductSupplierService;
+import com.example.utnfinaljava.repositories.ProductSupplierRepository;
 import com.example.utnfinaljava.repositories.ProductoRepository;
 
 @Service
-public class ProductoProveedorServiceImpl implements ProductoProveedorService {
+public class ProductSupplierServiceImpl implements ProductSupplierService {
 
     @Autowired
-    private ProductoProveedorRepository productoProveedorRepository;
+    private ProductSupplierRepository productoProveedorRepository;
 
     @Autowired
     private ProductoRepository productoRepository;
@@ -34,8 +34,8 @@ public class ProductoProveedorServiceImpl implements ProductoProveedorService {
     @Override
     public ProductoProveedorListaDto ListaProductosProveedor(Long productoId) {
 
-        Producto producto = productoRepository.findById(productoId).get();
-        List<ProductoProveedor> entities = productoProveedorRepository.findByProductoId(productoId);
+        Product producto = productoRepository.findById(productoId).get();
+        List<ProductSupplier> entities = productoProveedorRepository.findByProductoId(productoId);
         List<ProductoProveedorDto> dtos = entities.stream()
         .map(a -> modelMapper.map(a, ProductoProveedorDto.class))
         .collect(Collectors.toList());

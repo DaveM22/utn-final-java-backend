@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import com.example.utnfinaljava.dtos.ProductoDto;
-import com.example.utnfinaljava.entities.Producto;
-import com.example.utnfinaljava.interfaces.ProductoService;
+import com.example.utnfinaljava.entities.Product;
+import com.example.utnfinaljava.interfaces.ProductService;
 import com.example.utnfinaljava.responses.ResponseRequest;
 
 import io.micrometer.observation.transport.ResponseContext;
@@ -31,7 +31,7 @@ import io.micrometer.observation.transport.ResponseContext;
 public class ProductoController {
     
     @Autowired
-    private ProductoService productoService;
+    private ProductService productoService;
 
     @Autowired
     private ModelMapper modelMapper;

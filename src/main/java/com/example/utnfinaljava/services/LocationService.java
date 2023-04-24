@@ -5,20 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.utnfinaljava.entities.Localidad;
-import com.example.utnfinaljava.repositories.LocalidadRepository;
+import com.example.utnfinaljava.entities.Location;
+import com.example.utnfinaljava.repositories.LocationRepository;
 
 @Service
-public class LocalidadService {
+public class LocationService {
     
     @Autowired
-    LocalidadRepository repository;
+    LocationRepository repository;
 
-    public List<Localidad> ListaLocalidades(){
+    public List<Location> ListaLocalidades(){
         return repository.findAll();
     }
 
-    public Localidad GuardarLocalidad(Localidad localidad){
+    public Location GuardarLocalidad(Location localidad){
         if(localidad.getCodigo() == null){
             localidad.setCodigo(0L);
         }
@@ -26,7 +26,7 @@ public class LocalidadService {
     }
 
     public void BorrarLocalidad(Long id){
-        Localidad loc = repository.findById(id).get();
+        Location loc = repository.findById(id).get();
         repository.delete(loc);
     }
 }

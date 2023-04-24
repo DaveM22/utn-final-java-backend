@@ -4,6 +4,6 @@ import java.util.List;
 import com.example.utnfinaljava.dtos.ProductoProveedorListaDto;
 
 
-public interface ProductoProveedorService {
+public interface ProductSupplierService {
     ProductoProveedorListaDto ListaProductosProveedor(Long productoId);
 }
