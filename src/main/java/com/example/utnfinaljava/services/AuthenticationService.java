@@ -1,19 +1,15 @@
 package com.example.utnfinaljava.services;
 
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.example.utnfinaljava.dtos.AuthenticationRequest;
 import com.example.utnfinaljava.dtos.AuthenticationResponse;
 import com.example.utnfinaljava.dtos.RegisterRequest;
 import com.example.utnfinaljava.entities.User;
 import com.example.utnfinaljava.repositories.UserRepository;
-
-import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 
 @Service

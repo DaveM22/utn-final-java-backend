@@ -1,23 +1,27 @@
 package com.example.utnfinaljava.controllers;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.utnfinaljava.dtos.OrderDto;
+import com.example.utnfinaljava.interfaces.OrderService;
 import com.example.utnfinaljava.responses.ResponseRequest;
-import com.example.utnfinaljava.services.ProvinciaService;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api")
-public class ProvinciaController {
+@AllArgsConstructor
+public class OrderController {
     
-    @Autowired
-    private ProvinciaService provinciaService;
+    private final OrderService orderRepository;
 
-    @GetMapping("/provincias")
-    public ResponseEntity<ResponseRequest> ListaProvincias(){
+    @GetMapping("/orders")
+    public ResponseEntity<ResponseRequest> getOrders(){
         ResponseRequest response = new ResponseRequest();
-        response.setPayload(provinciaService.GetProvincias());
+        List<OrderDto> dtos = orderRepository.getOrders();
+        response.setPayload(dtos);
         return ResponseEntity.ok(response);
     }
 }

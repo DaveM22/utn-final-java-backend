@@ -2,8 +2,8 @@ package com.example.utnfinaljava.controllers;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +32,14 @@ public class ProductoProveedorController {
         response.setMessage("Proveedores del producto: " + productoProveedorListaDto.getNombreProducto());
         response.setPayload(productoProveedorListaDto.getProductoProveedores());  
         return response;
+    }
+
+    @GetMapping("/productos-proveedores")
+    public ResponseEntity<ResponseRequest> getProductsSupplier(){
+        ResponseRequest response = new ResponseRequest();
+        List<ProductoProveedorDto> dtos = this.productoProveedorServiceImpl.listaProductoProveedor();
+        response.setPayload(dtos);
+        return ResponseEntity.ok(response); 
     }
 
 }
