@@ -32,13 +32,12 @@ public class ConfigurationModelMapper {
             .addMappings(mapper -> {
                 mapper.map(src -> src.getId().getProductId(), OrderDetailDto::setProductId);
                 mapper.map(src -> src.getId().getOrderNumber(), OrderDetailDto::setOrderNumber);
-                mapper.map(src -> src.getId().getCuit(), OrderDetailDto::setCuit);
+                mapper.map(src -> src.getId().getIdPersona(), OrderDetailDto::setPersonaId);
             });
 
         modelMapper.createTypeMap(Order.class, OrderDto.class)
         .addMappings(mapper -> {
-            mapper.map(src -> src.getCustomer().getCuit(), OrderDto::setCustomerCuit);
-            mapper.map(src -> src.getCustomer().getRazonSocial(), OrderDto::setCustomer);
+            mapper.map(src -> src.getSupplier().getCuit(), OrderDto::setCustomerCuit);
             mapper.map(src -> src.getDetails(), OrderDto::setDetails);
             mapper.map(src -> src.GetTotalAmount(), OrderDto::setTotalAmount);
         });
@@ -59,7 +58,7 @@ public class ConfigurationModelMapper {
         var productoProveedorDtoMap = modelMapper.createTypeMap(ProductSupplier.class, ProductoProveedorDto.class);
         productoProveedorDtoMap.addMappings(mapper -> {
             mapper.map(src -> src.getCantidad(), ProductoProveedorDto::setCantidad);
-            mapper.map(src -> src.getProveedor().getRazonSocial(), ProductoProveedorDto::setNombreProveedor);
+            mapper.map(src -> src.getProveedor().getBusinessName(), ProductoProveedorDto::setNombreProveedor);
             mapper.map(src -> src.getProveedor().getCuit(), ProductoProveedorDto::setCuit);
             mapper.map(src -> src.getProducto().getDescripcion(), ProductoProveedorDto::setProductName);
             mapper.map(src -> src.getProducto().getId(), ProductoProveedorDto::setIdProducto);

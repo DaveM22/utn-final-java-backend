@@ -24,8 +24,8 @@ public class Order {
     @Column(name = "fecha_pedido")
     private Date orderDate;
     @OneToOne()
-    @JoinColumn(name = "cuit", referencedColumnName = "cuit")
-    public Persona customer;
+    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
+    public Supplier supplier;
     @OneToMany(mappedBy = "id.orderNumber", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderDetail> details = new ArrayList<>();
     

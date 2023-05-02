@@ -12,7 +12,7 @@ public class ProductoProveedorId implements Serializable {
     @Column(name = "id_producto")
     public Long producto;
 
-    @Column(name = "cuit")
-    private String cuit;
+    @Column(name = "id_persona")
+    private Long idPersona;
 
 }

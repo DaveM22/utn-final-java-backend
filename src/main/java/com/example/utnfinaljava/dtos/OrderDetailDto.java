@@ -6,6 +6,6 @@ import lombok.Data;
 public class OrderDetailDto {
     public int orderNumber;
     public int productId;
-    public String cuit;
+    public int personaId;
     public int amount;
 }

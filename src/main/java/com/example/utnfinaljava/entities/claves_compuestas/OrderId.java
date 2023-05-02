@@ -11,6 +11,6 @@ public class OrderId {
     private Long orderNumber;
     @Column(name = "id_producto")
     private Long productId;
-    @Column(name = "cuit")
-    private String cuit;
+    @Column(name = "id_persona")
+    private String idPersona;
 }

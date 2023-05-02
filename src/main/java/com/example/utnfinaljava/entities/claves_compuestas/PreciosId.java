@@ -11,8 +11,8 @@ import lombok.Data;
 public class PreciosId {
     @Column(name="id_producto")
     public Long productoId;
-    @Column(name="cuit")
-    public String cuit;
+    @Column(name="id_persona")
+    public Long idPersona;
     @Column(name="fecha_desde")
     public Date dateFrom;
 }

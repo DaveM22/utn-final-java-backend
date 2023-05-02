@@ -36,13 +36,13 @@ public class ProductSupplier {
     private Product producto;
     
     @ManyToOne
-    @JoinColumn(name = "cuit", referencedColumnName = "cuit", insertable = false, updatable = false)
-    private Persona proveedor;
+    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
+    private Supplier proveedor;
     
     @OneToMany
     @JoinColumns({
         @JoinColumn(name = "id_producto", referencedColumnName = "id_producto"),
-        @JoinColumn(name = "cuit", referencedColumnName = "cuit")
+        @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
     })
     private List<Price> prices = new ArrayList<>();
 
