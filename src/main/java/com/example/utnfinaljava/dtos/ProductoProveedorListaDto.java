@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class ProductoProveedorListaDto {
     private String nombreProducto;
-    private List<ProductoProveedorDto> productoProveedores;
+    private List<ProductSupplierDto> productoProveedores;
 }

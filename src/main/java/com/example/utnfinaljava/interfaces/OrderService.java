@@ -8,4 +8,6 @@ public interface OrderService {
     
     List<OrderDto> getOrders();
 
+    void createOrder(OrderDto order);
+
 }

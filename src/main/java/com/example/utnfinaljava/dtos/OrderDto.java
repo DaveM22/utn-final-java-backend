@@ -8,9 +8,7 @@ import lombok.Data;
 @Data
 public class OrderDto {
     private Long orderNumber;
-    private Date orderDate;
-    private String customer;
-    private String customerCuit;
-    private Long totalAmount;
+    private Date Date;
+    private Long personaId;
     private List<OrderDetailDto> details;
 }

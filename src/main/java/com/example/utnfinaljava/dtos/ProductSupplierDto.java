@@ -4,12 +4,13 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ProductoProveedorDto {
+public class ProductSupplierDto {
+    private Long personaId;
     private String cuit;
-    private Long idProducto;
+    private Long productId;
     private String productName;
-    private Long cantidad;
-    private String nombreProveedor;
+    private Integer amount;
+    private String supplierName;
     private List<PriceDto> prices;
     private Long validityPrice;
 }

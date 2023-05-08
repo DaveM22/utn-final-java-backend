@@ -6,6 +6,8 @@ import lombok.Data;
 
 @Data
 public class PriceDto {
+    private Long personaId;
+    private Long productId;
     private Date dateFrom;
     private Long price;
 }

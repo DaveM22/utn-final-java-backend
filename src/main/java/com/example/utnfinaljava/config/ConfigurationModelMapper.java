@@ -10,7 +10,7 @@ import com.example.utnfinaljava.dtos.OrderDetailDto;
 import com.example.utnfinaljava.dtos.OrderDto;
 import com.example.utnfinaljava.dtos.PriceDto;
 import com.example.utnfinaljava.dtos.ProductoDto;
-import com.example.utnfinaljava.dtos.ProductoProveedorDto;
+import com.example.utnfinaljava.dtos.ProductSupplierDto;
 import com.example.utnfinaljava.dtos.ProvinciaDto;
 import com.example.utnfinaljava.entities.Location;
 import com.example.utnfinaljava.entities.Order;
@@ -35,13 +35,6 @@ public class ConfigurationModelMapper {
                 mapper.map(src -> src.getId().getIdPersona(), OrderDetailDto::setPersonaId);
             });
 
-        modelMapper.createTypeMap(Order.class, OrderDto.class)
-        .addMappings(mapper -> {
-            mapper.map(src -> src.getSupplier().getCuit(), OrderDto::setCustomerCuit);
-            mapper.map(src -> src.getDetails(), OrderDto::setDetails);
-            mapper.map(src -> src.GetTotalAmount(), OrderDto::setTotalAmount);
-        });
-
         modelMapper.createTypeMap(Price.class, PriceDto.class)
         .addMappings(mapper -> {
             mapper.map(src -> src.getId().getDateFrom(), PriceDto::setDateFrom);
@@ -55,15 +48,15 @@ public class ConfigurationModelMapper {
             mapper.map(src -> src.GetTotal(), ProductoDto::setCantidad);
         });
 
-        var productoProveedorDtoMap = modelMapper.createTypeMap(ProductSupplier.class, ProductoProveedorDto.class);
+        var productoProveedorDtoMap = modelMapper.createTypeMap(ProductSupplier.class, ProductSupplierDto.class);
         productoProveedorDtoMap.addMappings(mapper -> {
-            mapper.map(src -> src.getCantidad(), ProductoProveedorDto::setCantidad);
-            mapper.map(src -> src.getProveedor().getBusinessName(), ProductoProveedorDto::setNombreProveedor);
-            mapper.map(src -> src.getProveedor().getCuit(), ProductoProveedorDto::setCuit);
-            mapper.map(src -> src.getProducto().getDescripcion(), ProductoProveedorDto::setProductName);
-            mapper.map(src -> src.getProducto().getId(), ProductoProveedorDto::setIdProducto);
-            mapper.map(src -> src.getPrices(), ProductoProveedorDto::setPrices);
-            mapper.map(src -> src.getValidityPrice().getPrice(), ProductoProveedorDto::setValidityPrice);
+            mapper.map(src -> src.getCantidad(), ProductSupplierDto::setAmount);
+            mapper.map(src -> src.getProveedor().getBusinessName(), ProductSupplierDto:: setSupplierName);
+            mapper.map(src -> src.getProveedor().getCuit(), ProductSupplierDto::setCuit);
+            mapper.map(src -> src.getProducto().getDescripcion(), ProductSupplierDto::setProductName);
+            mapper.map(src -> src.getProducto().getId(), ProductSupplierDto::setProductId);
+            mapper.map(src -> src.getPrices(), ProductSupplierDto::setPrices);
+            mapper.map(src -> src.getValidityPrice().getPrice(), ProductSupplierDto::setValidityPrice);
         });
         return modelMapper;
     }

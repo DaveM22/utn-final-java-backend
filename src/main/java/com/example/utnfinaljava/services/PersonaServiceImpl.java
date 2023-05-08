@@ -6,17 +6,20 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.utnfinaljava.dtos.PersonaDto;
+import com.example.utnfinaljava.dtos.SupplierDto;
 import com.example.utnfinaljava.dtos.CustomerCompanyDto;
 import com.example.utnfinaljava.dtos.CustomerParticularDto;
 import com.example.utnfinaljava.entities.Customer;
 import com.example.utnfinaljava.entities.CustomerCompany;
 import com.example.utnfinaljava.entities.CustomerParticular;
 import com.example.utnfinaljava.entities.Persona;
+import com.example.utnfinaljava.entities.Supplier;
 import com.example.utnfinaljava.interfaces.PersonaService;
 import com.example.utnfinaljava.repositories.CustomerCompanyRepository;
 import com.example.utnfinaljava.repositories.CustomerParticularRepository;
 import com.example.utnfinaljava.repositories.CustomerRepository;
 import com.example.utnfinaljava.repositories.PersonaRepository;
+import com.example.utnfinaljava.repositories.SupplierRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -32,6 +35,8 @@ public class PersonaServiceImpl implements PersonaService {
     private final CustomerParticularRepository customerParticularRepository;
 
     private final CustomerCompanyRepository customerCompanyRepository;
+
+    private final SupplierRepository supplierRepository;
 
 	@Override
 	public List<CustomerParticularDto> getCustomerParticular() {
@@ -132,6 +137,50 @@ public class PersonaServiceImpl implements PersonaService {
         customerCompanyRepository.save(company);
         customer.setId(saved.getId());
         return customer;
+    }
+
+    @Override
+    public List<SupplierDto> getSupplier() {
+        var entities = supplierRepository.findAll();
+        List<SupplierDto> supplierDtos = new ArrayList<SupplierDto>();
+        for (Supplier supplier : entities) {
+            SupplierDto dto = new SupplierDto();
+            dto.setBusinessName(supplier.getBusinessName());
+            dto.setCuit(supplier.getCuit());
+            dto.setDirection(supplier.getPersona().getDireccion());
+            dto.setPhoneNumber(supplier.getPersona().getTelefono());
+            dto.setId(supplier.getId());
+            dto.setEmail(supplier.getPersona().getEmail());
+            dto.setPostalCod(supplier.getPersona().getPostalCode());
+            supplierDtos.add(dto);
+        }
+        return supplierDtos;
+    }
+
+    @Override
+    @Transactional
+    public void RemoveSupplier(Long id) {
+        this.supplierRepository.deleteById(id);
+        this.personaRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public SupplierDto save(SupplierDto supplier) {
+        Persona per = new Persona();
+        per.setId(supplier.getId());
+        per.setDireccion(supplier.getDirection());
+        per.setEmail(supplier.getEmail());
+        per.setTelefono(supplier.getPhoneNumber());
+        per.setPostalCode(2000L);
+        Persona saved = personaRepository.save(per);
+        Supplier newSupplier = new Supplier();
+        newSupplier.setBusinessName(supplier.getBusinessName());
+        newSupplier.setCuit(supplier.getCuit());
+        newSupplier.setId(saved.getId());
+        supplierRepository.save(newSupplier);
+        supplier.setId(saved.getId());
+        return supplier;
     }
   
 }

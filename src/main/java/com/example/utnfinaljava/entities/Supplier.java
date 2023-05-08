@@ -13,9 +13,12 @@ import lombok.Data;
 @Table(name = "proveedores")
 public class Supplier {
     @Id
+    @Column(name = "id_persona")
+    private Long id;
+
     @OneToOne
-    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
-    private Persona categoria;
+    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
+    private Persona persona;
 
     @Column(name="cuit")
     private String cuit;

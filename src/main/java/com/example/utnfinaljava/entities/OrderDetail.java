@@ -9,11 +9,14 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "pedidos_detalle")
+@Table(name = "pedidos_detalles")
 public class OrderDetail {
     @EmbeddedId
     private OrderId id;
 
     @Column(name="cantidad")
     private int amount;
+
+    @Column(name="total")
+    private Long total;
 }

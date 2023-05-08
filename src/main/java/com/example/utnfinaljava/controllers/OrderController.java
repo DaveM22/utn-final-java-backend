@@ -3,6 +3,8 @@ package com.example.utnfinaljava.controllers;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.utnfinaljava.dtos.OrderDto;
@@ -22,6 +24,14 @@ public class OrderController {
         ResponseRequest response = new ResponseRequest();
         List<OrderDto> dtos = orderRepository.getOrders();
         response.setPayload(dtos);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/orders")
+    public ResponseEntity<ResponseRequest> postOrder(@RequestBody OrderDto order){
+        ResponseRequest response = new ResponseRequest();
+        orderRepository.createOrder(order);
+        response.setMessage("Se ha registrado la compra correctamente");
         return ResponseEntity.ok(response);
     }
 }

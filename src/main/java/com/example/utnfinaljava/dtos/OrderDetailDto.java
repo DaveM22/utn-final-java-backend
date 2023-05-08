@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class OrderDetailDto {
-    public int orderNumber;
-    public int productId;
-    public int personaId;
-    public int amount;
+    public Long orderNumber;
+    public Long productId;
+    public Long personaId;
+    public Integer amount;
+    public Long total;
 }

@@ -28,7 +28,7 @@ public class ProductSupplier {
     private ProductoProveedorId id;
 
     @Column(name = "cantidad")
-    private Long cantidad;
+    private Integer cantidad;
 
     @JsonIgnoreProperties("proveedores")
     @ManyToOne
