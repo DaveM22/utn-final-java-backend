@@ -14,13 +14,13 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/api/auth/**")
-                .allowedOrigins("http://localhost:4200", "https://davem22githubio-production.up.railway.app")
+                .allowedOrigins("http://localhost:4200","https://davem22githubio-production.up.railway.app/" )
                 .allowedMethods("*")
                 .exposedHeaders("*");
 
                 registry.addMapping("/api/**")
                 .exposedHeaders("*")
-                .allowedOrigins("https://davem22githubio-production.up.railway.app","http://localhost:4200")
+                .allowedOrigins("https://davem22githubio-production.up.railway.app/","http://localhost:4200")
                 .allowedMethods("*");
             }
         };

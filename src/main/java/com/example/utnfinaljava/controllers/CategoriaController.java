@@ -23,7 +23,6 @@ import com.example.utnfinaljava.responses.ResponseRequest;
 import jakarta.validation.Valid;
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/api")
 public class CategoriaController {
     
