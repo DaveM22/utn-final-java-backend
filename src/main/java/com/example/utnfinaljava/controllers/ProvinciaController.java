@@ -21,7 +21,6 @@ import com.example.utnfinaljava.services.ProvinciaService;
 import jakarta.validation.Valid;
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/api")
 public class ProvinciaController {
     

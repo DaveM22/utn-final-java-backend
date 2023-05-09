@@ -19,7 +19,6 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin()
 @RequestMapping("/api")
 public class PriceController {
     

@@ -14,7 +14,6 @@ import com.example.utnfinaljava.responses.ResponseRequest;
 import lombok.AllArgsConstructor;
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/api")
 @AllArgsConstructor
 public class OrderController {

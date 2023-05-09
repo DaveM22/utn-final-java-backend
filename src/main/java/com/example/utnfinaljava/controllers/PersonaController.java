@@ -26,7 +26,6 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin()
 @AllArgsConstructor
 public class PersonaController {
     

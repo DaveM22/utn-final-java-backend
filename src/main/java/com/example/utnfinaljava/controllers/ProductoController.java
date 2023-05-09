@@ -18,7 +18,6 @@ import com.example.utnfinaljava.interfaces.ProductService;
 import com.example.utnfinaljava.responses.ResponseRequest;
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/api")
 public class ProductoController {
     

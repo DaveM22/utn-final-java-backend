@@ -19,7 +19,6 @@ import com.example.utnfinaljava.responses.ResponseRequest;
 
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/api")
 public class ProductoProveedorController {
     
