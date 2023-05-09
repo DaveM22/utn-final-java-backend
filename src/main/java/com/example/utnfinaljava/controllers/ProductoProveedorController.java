@@ -19,7 +19,7 @@ import com.example.utnfinaljava.responses.ResponseRequest;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 @RequestMapping("/api")
 public class ProductoProveedorController {
     
