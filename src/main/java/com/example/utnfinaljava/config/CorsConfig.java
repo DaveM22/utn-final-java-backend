@@ -20,7 +20,7 @@ public class CorsConfig {
 
                 registry.addMapping("/api/**")
                 .exposedHeaders("*")
-                .allowedOrigins("htttps://davem22githubio-production.up.railway.app","http://localhost:4200")
+                .allowedOrigins("https://davem22githubio-production.up.railway.app","http://localhost:4200")
                 .allowedMethods("*");
             }
         };
