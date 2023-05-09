@@ -19,7 +19,7 @@ public class CorsConfig {
                 .exposedHeaders("*");
 
                 registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:4200", "https://davem22.github.io")
+                .allowedOrigins("https://davem22.github.io","http://localhost:4200")
                 .allowedMethods("*");
             }
         };
