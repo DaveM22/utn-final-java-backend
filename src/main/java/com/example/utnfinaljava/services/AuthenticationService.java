@@ -24,23 +24,23 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse Register(RegisterRequest request){
-        var user = User.builder()
-            .email(request.getEmail())
-            .clave(passwordEncoder.encode(request.getPassword()))
-            .nombreUsuario(request.getName())
-            .build();
-            usuarioRepository.save(user);
-            var jwtToken = jwtService.generateToken(user);
-            return AuthenticationResponse.builder()
-            .token(jwtToken)
-            .build();
+    public AuthenticationResponse Register(RegisterRequest request) {
+        var user = new User();
+        user.setEmail(request.getEmail());
+        user.setClave(passwordEncoder.encode(request.getPassword()));
+        user.setNombreUsuario(request.getName());
+        usuarioRepository.save(user);
+        var jwtToken = jwtService.generateToken(user);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request){
-       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         var user = usuarioRepository.findByEmail(request.getEmail())
-        .orElseThrow(() -> new UsernameNotFoundException("no encontrado"));
+                .orElseThrow(() -> new UsernameNotFoundException("no encontrado"));
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
