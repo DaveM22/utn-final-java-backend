@@ -25,7 +25,6 @@ import com.example.utnfinaljava.services.LocationService;
 import jakarta.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class LocalidadController {
 

@@ -13,7 +13,6 @@ import com.example.utnfinaljava.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
