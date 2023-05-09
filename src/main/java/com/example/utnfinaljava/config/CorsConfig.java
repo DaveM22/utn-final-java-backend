@@ -14,12 +14,12 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/api/auth/**")
-                .allowedOrigins("http://localhost:4200")
+                .allowedOrigins("http://localhost:4200", "https://davem22.github.io")
                 .allowedMethods("*")
                 .exposedHeaders("*");
 
                 registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:4200")
+                .allowedOrigins("http://localhost:4200", "https://davem22.github.io")
                 .allowedMethods("*");
             }
         };
