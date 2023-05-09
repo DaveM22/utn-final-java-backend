@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/api/auth/**")
-                .allowedOrigins("http://localhost:4200", "tps://davem22githubio-production.up.railway.app")
+                .allowedOrigins("http://localhost:4200", "https://davem22githubio-production.up.railway.app")
                 .allowedMethods("*")
                 .exposedHeaders("*");
 
