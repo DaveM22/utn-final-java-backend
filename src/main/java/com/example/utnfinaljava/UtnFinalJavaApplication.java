@@ -3,10 +3,12 @@ package com.example.utnfinaljava;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 @SpringBootApplication
+@EnableJpaRepositories
 @EnableTransactionManagement
 @Controller
 public class UtnFinalJavaApplication implements ErrorController {

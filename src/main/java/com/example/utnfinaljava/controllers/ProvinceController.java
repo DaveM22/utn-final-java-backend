@@ -19,29 +19,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.utnfinaljava.dtos.ProvinciaDto;
+import com.example.utnfinaljava.dtos.ProvinceDto;
 import com.example.utnfinaljava.responses.ResponseRequest;
 import com.example.utnfinaljava.services.ProvinciaService;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
+import com.example.utnfinaljava.util.exceptions.NotExistException;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
-public class ProvinciaController {
+public class ProvinceController {
     
     @Autowired
     private ProvinciaService provinciaService;
 
-    @GetMapping("/provincias")
-    public ResponseEntity<ResponseRequest> ListaProvincias(){
+    @GetMapping("/provinces")
+    public ResponseEntity<ResponseRequest> getProvincies(){
         ResponseRequest response = new ResponseRequest();
-        response.setPayload(provinciaService.GetProvincias());
+        response.setPayload(provinciaService.getProvincies());
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/provincies")
-    public ResponseEntity<ResponseRequest> PostProvince(@Valid @RequestBody ProvinciaDto province, BindingResult result) throws AlreadyExistException {
+    @PostMapping("/provinces")
+    public ResponseEntity<ResponseRequest> postProvince(@Valid @RequestBody ProvinceDto province, BindingResult result) throws AlreadyExistException {
         ResponseRequest response = new ResponseRequest();
         if(result.hasErrors()){
             response.setErrorMessage("Error al crear la provincia");
@@ -52,14 +53,14 @@ public class ProvinciaController {
             return ResponseEntity.badRequest().body(response);
         }
         else{
-            ProvinciaDto created = provinciaService.New(province);
+            ProvinceDto created = provinciaService.create(province);
             response.setPayload(created);
             return ResponseEntity.ok(response);
         }
     }
 
-    @PutMapping("/provincies")
-    public ResponseEntity<ResponseRequest> PutProvince(@Valid @RequestBody ProvinciaDto province, BindingResult result) throws AlreadyExistException {
+    @PutMapping("/provinces")
+    public ResponseEntity<ResponseRequest> putProvince(@Valid @RequestBody ProvinceDto province, BindingResult result) throws NotExistException {
         ResponseRequest response = new ResponseRequest();
         if(result.hasErrors()){
             response.setErrorMessage("Se detectaron los siguientes errores:");
@@ -70,11 +71,19 @@ public class ProvinciaController {
             return ResponseEntity.badRequest().body(response);
         }
         else{
-            ProvinciaDto created = provinciaService.New(province);
-            response.setMessage("Se ha creado la provincia de manera exitosa");
+            ProvinceDto created = provinciaService.edit(province);
+            response.setMessage("Se han guardado los cambios de la provincia de manera exitosa");
             response.setPayload(created);
             return ResponseEntity.ok(response);
         }
+    }
+
+    @DeleteMapping("/provinces/{id}")
+    public ResponseEntity<ResponseRequest> deleteCompany(@PathVariable("id") Long id) throws NotExistException{
+        ResponseRequest response = new ResponseRequest();
+        provinciaService.delete(id);
+        response.setMessage("Se ha borrado la provincia de manera exitosa");
+        return ResponseEntity.ok(response);
     }
 
 }

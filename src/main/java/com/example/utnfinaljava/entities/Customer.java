@@ -9,10 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -32,7 +29,6 @@ public class Customer {
 
     @OneToOne
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable =  false)
-    @NotFound(action = NotFoundAction.IGNORE)
     private CustomerParticular particular;
 
     @OneToOne

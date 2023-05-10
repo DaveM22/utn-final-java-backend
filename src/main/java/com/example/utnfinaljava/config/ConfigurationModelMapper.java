@@ -5,13 +5,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.example.utnfinaljava.dtos.CategoriaDto;
-import com.example.utnfinaljava.dtos.LocalidadDto;
+import com.example.utnfinaljava.dtos.LocationDto;
 import com.example.utnfinaljava.dtos.OrderDetailDto;
 import com.example.utnfinaljava.dtos.OrderDto;
 import com.example.utnfinaljava.dtos.PriceDto;
 import com.example.utnfinaljava.dtos.ProductoDto;
 import com.example.utnfinaljava.dtos.ProductSupplierDto;
-import com.example.utnfinaljava.dtos.ProvinciaDto;
+import com.example.utnfinaljava.dtos.ProvinceDto;
 import com.example.utnfinaljava.entities.Location;
 import com.example.utnfinaljava.entities.Order;
 import com.example.utnfinaljava.entities.OrderDetail;
@@ -24,8 +24,7 @@ public class ConfigurationModelMapper {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.createTypeMap(ProvinciaDto.class, Province.class);
-        modelMapper.createTypeMap(LocalidadDto.class, Location.class);
+        modelMapper.createTypeMap(ProvinceDto.class, Province.class);
         modelMapper.createTypeMap(CategoriaDto.class, Category.class);
 
         modelMapper.createTypeMap(OrderDetail.class, OrderDetailDto.class)

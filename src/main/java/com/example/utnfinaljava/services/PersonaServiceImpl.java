@@ -129,7 +129,7 @@ public class PersonaServiceImpl implements PersonaService {
         Persona saved = personaRepository.save(per);
         Customer customerEntity = new Customer();
         customerEntity.setId(saved.getId());
-        customerEntity.setIdTipocliente(1L);
+        customerEntity.setIdTipocliente(2L);
         customerRepository.save(customerEntity);
         CustomerCompany company = new CustomerCompany();
         company.setId(saved.getId());

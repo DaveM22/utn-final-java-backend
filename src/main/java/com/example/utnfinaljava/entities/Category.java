@@ -1,5 +1,6 @@
 package com.example.utnfinaljava.entities;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "categorias")
+@Table( name = "categorias")
 public class Category {
     
     @Id

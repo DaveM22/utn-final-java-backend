@@ -1,32 +1,86 @@
 package com.example.utnfinaljava.services;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.example.utnfinaljava.dtos.LocationDto;
 import com.example.utnfinaljava.entities.Location;
 import com.example.utnfinaljava.repositories.LocationRepository;
+import com.example.utnfinaljava.repositories.ProvinceRepository;
+import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
+import com.example.utnfinaljava.util.exceptions.NotExistException;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class LocationService {
-    
-    @Autowired
-    LocationRepository repository;
 
-    public List<Location> ListaLocalidades(){
-        return repository.findAll();
-    }
+    private final LocationRepository locationRepository;
 
-    public Location GuardarLocalidad(Location localidad){
-        if(localidad.getCodigo() == null){
-            localidad.setCodigo(0L);
+    private final ProvinceRepository provinceRepository;
+
+    public List<LocationDto> getLocations() {
+        var entities = locationRepository.findAll();
+        List<LocationDto> locations = new ArrayList<LocationDto>();
+        for (Location location : entities) {
+            LocationDto dto = new LocationDto();
+            dto.setPostalCode(location.getPostalCode());
+            dto.setProvinceCode(location.getCodProvince());
+            dto.setCity(location.getCity());
+            dto.setProvinceName(location.getProvince().getNombre());
+            locations.add(dto);
         }
-        return repository.save(localidad);
+        return locations;
     }
 
-    public void BorrarLocalidad(Long id){
-        Location loc = repository.findById(id).get();
-        repository.delete(loc);
+    @Transactional
+    public LocationDto create(LocationDto location) throws AlreadyExistException, NotExistException {
+        boolean alreadyExist = locationRepository.existsById(location.getPostalCode());
+        if (alreadyExist) {
+            throw new AlreadyExistException("El código de la provincia ingresado ya existe");
+        }
+
+        boolean provinceNotExist = !provinceRepository.existsById(location.getProvinceCode());
+        if (provinceNotExist) {
+            throw new NotExistException("La provincia ingresada no existe");
+        }
+
+        Location loc = new Location();
+        loc.setPostalCode(location.getPostalCode());
+        loc.setCity(location.getCity());
+        loc.setCodProvince(location.getProvinceCode());
+        
+        locationRepository.save(loc);
+        return location;
+    }
+
+    @Transactional
+    public LocationDto edit(LocationDto location) throws AlreadyExistException, NotExistException {
+        boolean alreadyExist = locationRepository.existsById(location.getPostalCode());
+        if (alreadyExist) {
+            throw new AlreadyExistException("El código de la provincia ingresado ya existe");
+        }
+
+        boolean provinceNotExist = !provinceRepository.existsById(location.getProvinceCode());
+        if (provinceNotExist) {
+            throw new NotExistException("La provincia ingresada no existe");
+        }
+
+        Location loc = new Location();
+        loc.setPostalCode(location.getPostalCode());
+        loc.setCity(location.getCity());
+        loc.setCodProvince(location.getProvinceCode());
+        locationRepository.save(loc);
+        return location;
+    }
+
+    @Transactional
+    public void delete(Long id) throws NotExistException {
+        boolean notExist = !locationRepository.existsById(id);
+        if (notExist) {
+            throw new NotExistException("La provincia ingresada no existe");
+        }
+        locationRepository.deleteById(id);
     }
 }
