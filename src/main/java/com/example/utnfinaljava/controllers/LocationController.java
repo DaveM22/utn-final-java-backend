@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.utnfinaljava.dtos.LocationDto;
 import com.example.utnfinaljava.responses.ResponseRequest;
-import com.example.utnfinaljava.services.LocationService;
+import com.example.utnfinaljava.services.LocationServiceImpl;
 import com.example.utnfinaljava.util.error.ErrorMessages;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.NotExistException;
@@ -27,7 +27,7 @@ import jakarta.validation.Valid;
 public class LocationController {
 
     @Autowired
-    private LocationService locationService;
+    private LocationServiceImpl locationService;
 
     @GetMapping("/locations")
     public ResponseEntity<ResponseRequest> getLocation(){

@@ -37,7 +37,7 @@ public class ProductSupplierServiceImpl implements ProductSupplierService {
         .map(a -> modelMapper.map(a, ProductSupplierDto.class))
         .collect(Collectors.toList());
         ProductoProveedorListaDto proveedorListaDto = new ProductoProveedorListaDto();
-        proveedorListaDto.setNombreProducto(producto.getDescripcion());
+        proveedorListaDto.setNombreProducto(producto.getDescription());
         proveedorListaDto.setProductoProveedores(dtos);
         return proveedorListaDto;
     }

@@ -40,7 +40,7 @@ public class PersonaServiceImpl implements PersonaService {
 
 	@Override
 	public List<CustomerParticularDto> getCustomerParticular() {
-		var entities = customerRepository.findByidTipoclienteEquals(1L);
+		var entities = customerRepository.findByTypeCustomerIdEquals(1L);
         List<CustomerParticularDto> particularDtos = new ArrayList<CustomerParticularDto>();
         for (Customer customer : entities) {
             CustomerParticularDto dto = new CustomerParticularDto();
@@ -59,7 +59,7 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public List<CustomerCompanyDto> getCustomerCompany() {
-        var entities = customerRepository.findByidTipoclienteEquals(2L);
+        var entities = customerRepository.findByTypeCustomerIdEquals(2L);
         List<CustomerCompanyDto> companies = new ArrayList<CustomerCompanyDto>();
         for (Customer customer : entities) {
             CustomerCompanyDto dto = new CustomerCompanyDto();
@@ -89,7 +89,7 @@ public class PersonaServiceImpl implements PersonaService {
         Persona saved = personaRepository.save(per);
         Customer customerEntity = new Customer();
         customerEntity.setId(saved.getId());
-        customerEntity.setIdTipocliente(1L);
+        customerEntity.setTypeCustomerId(1L);
         customerRepository.save(customerEntity);
         CustomerParticular particular = new CustomerParticular();
         particular.setFirstName(customer.getFirstName());
@@ -129,7 +129,7 @@ public class PersonaServiceImpl implements PersonaService {
         Persona saved = personaRepository.save(per);
         Customer customerEntity = new Customer();
         customerEntity.setId(saved.getId());
-        customerEntity.setIdTipocliente(2L);
+        customerEntity.setTypeCustomerId(2L);
         customerRepository.save(customerEntity);
         CustomerCompany company = new CustomerCompany();
         company.setId(saved.getId());

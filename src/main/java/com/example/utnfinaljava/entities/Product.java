@@ -25,18 +25,21 @@ public class Product {
     private Long id;
 
     @Column(name = "descripcion")
-    private String descripcion;
+    private String description;
+
+    @Column(name = "id_categoria")
+    private Long categoryId;
 
     @OneToOne
-    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
-    private Category categoria;
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", insertable = false, updatable = false)
+    private Category category;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "id.producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductSupplier> proveedores = new ArrayList<>();
+    private List<ProductSupplier> suppliers = new ArrayList<>();
 
     public Long GetTotal(){
-        return this.proveedores.stream().mapToLong(o -> o.getCantidad()).sum();
+        return this.suppliers.stream().mapToLong(o -> o.getCantidad()).sum();
     }
 
 }

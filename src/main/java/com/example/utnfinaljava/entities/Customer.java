@@ -20,7 +20,7 @@ public class Customer {
     private Long id;
 
     @Column(name = "id_tipo_cliente")
-    private Long idTipocliente;
+    private Long typeCustomerId;
 
     @OneToOne
     @NotFound(action = NotFoundAction.IGNORE)

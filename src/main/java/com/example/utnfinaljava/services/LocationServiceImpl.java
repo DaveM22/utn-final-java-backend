@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.utnfinaljava.dtos.LocationDto;
 import com.example.utnfinaljava.entities.Location;
+import com.example.utnfinaljava.interfaces.LocationService;
 import com.example.utnfinaljava.repositories.LocationRepository;
 import com.example.utnfinaljava.repositories.ProvinceRepository;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
@@ -14,7 +15,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class LocationService {
+public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
 
@@ -28,7 +29,7 @@ public class LocationService {
             dto.setPostalCode(location.getPostalCode());
             dto.setProvinceCode(location.getCodProvince());
             dto.setCity(location.getCity());
-            dto.setProvinceName(location.getProvince().getNombre());
+            dto.setProvinceName(location.getProvince().getName());
             locations.add(dto);
         }
         return locations;
@@ -55,12 +56,9 @@ public class LocationService {
         return location;
     }
 
+    @Override
     @Transactional
-    public LocationDto edit(LocationDto location) throws AlreadyExistException, NotExistException {
-        boolean alreadyExist = locationRepository.existsById(location.getPostalCode());
-        if (alreadyExist) {
-            throw new AlreadyExistException("El código de la provincia ingresado ya existe");
-        }
+    public LocationDto edit(LocationDto location) throws NotExistException {
 
         boolean provinceNotExist = !provinceRepository.existsById(location.getProvinceCode());
         if (provinceNotExist) {

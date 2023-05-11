@@ -14,5 +14,5 @@ public class Province {
     @Column(name = "cod_provincia")
     public Long codigo;
     @Column(name = "nombre_provincia")
-    public String nombre;
+    public String name;
 }

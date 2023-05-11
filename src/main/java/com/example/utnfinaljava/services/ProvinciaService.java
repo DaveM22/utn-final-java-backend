@@ -27,7 +27,7 @@ public class ProvinciaService {
         for (Province provincie : entities) {
             ProvinceDto dto = new ProvinceDto();
             dto.setProvinceCode(provincie.getCodigo());
-            dto.setName(provincie.getNombre());
+            dto.setName(provincie.getName());
             provincies.add(dto);
         }
         return provincies;
@@ -42,7 +42,7 @@ public class ProvinciaService {
 
         Province entity = new Province();
         entity.setCodigo(province.getProvinceCode());
-        entity.setNombre(province.getName());
+        entity.setName(province.getName());
         provinciaRepository.save(entity);
         ProvinceDto dto = modelMapper.map(entity, ProvinceDto.class);
         return dto;
@@ -56,7 +56,7 @@ public class ProvinciaService {
         }
         Province entity = new Province();
         entity.setCodigo(province.getProvinceCode());
-        entity.setNombre(province.getName());
+        entity.setName(province.getName());
         provinciaRepository.save(entity);
         return province;
     }

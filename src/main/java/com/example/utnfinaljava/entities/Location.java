@@ -26,4 +26,8 @@ public class Location {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cod_provincia", referencedColumnName = "cod_provincia", insertable = false, updatable = false)
     private Province province;
+
+    public String GetMilanesas(){
+        return "asd";
+    }
 }

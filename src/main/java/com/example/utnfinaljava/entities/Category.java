@@ -20,6 +20,8 @@ public class Category {
     private Long id;
 
     @Column(name = "nom_categoria")
-    private String nombre;
+    private String name;
 
 }
+
+

@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
         for (Category category : entities) {
             CategoryDto dto = new CategoryDto();
             dto.setId(category.getId());
-            dto.setName(category.getNombre());
+            dto.setName(category.getName());
             categoryDtos.add(dto);
         }
         return categoryDtos;
@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public CategoryDto createCategory(CategoryDto category) {
         Category cat = new Category();
-        cat.setNombre(category.getName());
+        cat.setName(category.getName());
         categoryRepository.save(cat);
         return category;
     }
@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto editCategoriaDto(CategoryDto category) {
         Category cat = new Category();
         cat.setId(category.getId());
-        cat.setNombre(category.getName());
+        cat.setName(category.getName());
         categoryRepository.save(cat);
         return category;
     }
