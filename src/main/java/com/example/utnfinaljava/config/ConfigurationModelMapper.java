@@ -4,7 +4,7 @@ import java.util.Locale.Category;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.example.utnfinaljava.dtos.CategoriaDto;
+import com.example.utnfinaljava.dtos.CategoryDto;
 import com.example.utnfinaljava.dtos.LocationDto;
 import com.example.utnfinaljava.dtos.OrderDetailDto;
 import com.example.utnfinaljava.dtos.OrderDto;
@@ -25,7 +25,7 @@ public class ConfigurationModelMapper {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.createTypeMap(ProvinceDto.class, Province.class);
-        modelMapper.createTypeMap(CategoriaDto.class, Category.class);
+        modelMapper.createTypeMap(CategoryDto.class, Category.class);
 
         modelMapper.createTypeMap(OrderDetail.class, OrderDetailDto.class)
             .addMappings(mapper -> {

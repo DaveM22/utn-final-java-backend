@@ -2,14 +2,15 @@ package com.example.utnfinaljava.interfaces;
 
 import java.util.List;
 
-import com.example.utnfinaljava.dtos.CategoriaDto;
-import com.example.utnfinaljava.entities.Category;
+import com.example.utnfinaljava.dtos.CategoryDto;
 
 
 public interface CategoryService {
-    public List<CategoriaDto> listaCategorias();
+    public List<CategoryDto> getCategories();
 
-    public Category guardarCategoria(Category categoria);
+    public CategoryDto createCategory(CategoryDto category);
 
-    public void borrarCategoria(Long id);
+    public CategoryDto editCategoriaDto(CategoryDto category);
+
+    public void deleteCategory(Long id);
 }

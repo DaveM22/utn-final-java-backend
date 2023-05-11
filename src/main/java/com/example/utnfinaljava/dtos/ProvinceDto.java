@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ProvinceDto{
+public class ProvinceDto {
     private Long provinceCode;
     @Size(max = 60, message = "La cantidad de caracteres ingresado superior al maximo permitido")
     @NotBlank(message = "El campo nombre no puede estar vacio")
