@@ -24,6 +24,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
+
 @RequestMapping("/api")
 public class CategoryController {
     

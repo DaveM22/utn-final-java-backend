@@ -35,7 +35,7 @@ public class Product {
     private Category category;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "id.producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "id.producto", cascade = CascadeType.ALL)
     private List<ProductSupplier> suppliers = new ArrayList<>();
 
     public Long GetTotal(){

@@ -21,29 +21,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.utnfinaljava.dtos.ProvinceDto;
+import com.example.utnfinaljava.interfaces.ProvinceService;
 import com.example.utnfinaljava.responses.ResponseRequest;
-import com.example.utnfinaljava.services.ProvinciaService;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.NotExistException;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @RestController
-@RolesAllowed("ADMIN")
+@AllArgsConstructor
 @RequestMapping("/api")
 public class ProvinceController {
     
     @Autowired
-    private ProvinciaService provinciaService;
+    private ProvinceService provinceService;
 
     @GetMapping("/provinces")
     public ResponseEntity<ResponseRequest> getProvincies(){
         ResponseRequest response = new ResponseRequest();
-        response.setPayload(provinciaService.getProvincies());
+        response.setPayload(provinceService.getProvincies());
         return ResponseEntity.ok(response);
     }
 
+    @RolesAllowed("ADMIN")
     @PostMapping("/provinces")
     public ResponseEntity<ResponseRequest> postProvince(@Valid @RequestBody ProvinceDto province, BindingResult result) throws AlreadyExistException {
         ResponseRequest response = new ResponseRequest();
@@ -56,12 +58,13 @@ public class ProvinceController {
             return ResponseEntity.badRequest().body(response);
         }
         else{
-            ProvinceDto created = provinciaService.create(province);
+            ProvinceDto created = provinceService.create(province);
             response.setPayload(created);
             return ResponseEntity.ok(response);
         }
     }
 
+    @RolesAllowed("ADMIN")
     @PutMapping("/provinces")
     public ResponseEntity<ResponseRequest> putProvince(@Valid @RequestBody ProvinceDto province, BindingResult result) throws NotExistException {
         ResponseRequest response = new ResponseRequest();
@@ -74,17 +77,18 @@ public class ProvinceController {
             return ResponseEntity.badRequest().body(response);
         }
         else{
-            ProvinceDto created = provinciaService.edit(province);
+            ProvinceDto created = provinceService.edit(province);
             response.setMessage("Se han guardado los cambios de la provincia de manera exitosa");
             response.setPayload(created);
             return ResponseEntity.ok(response);
         }
     }
 
+    @RolesAllowed("ADMIN")
     @DeleteMapping("/provinces/{id}")
     public ResponseEntity<ResponseRequest> deleteCompany(@PathVariable("id") Long id) throws NotExistException{
         ResponseRequest response = new ResponseRequest();
-        provinciaService.delete(id);
+        provinceService.delete(id);;
         response.setMessage("Se ha borrado la provincia de manera exitosa");
         return ResponseEntity.ok(response);
     }

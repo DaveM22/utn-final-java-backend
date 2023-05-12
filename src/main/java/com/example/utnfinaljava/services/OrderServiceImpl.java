@@ -24,6 +24,7 @@ import com.example.utnfinaljava.repositories.OrderRepository;
 import com.example.utnfinaljava.repositories.ProductSupplierRepository;
 import com.example.utnfinaljava.repositories.ProductoRepository;
 import com.example.utnfinaljava.util.exceptions.AmountIsZeroOrNullException;
+import com.example.utnfinaljava.util.exceptions.StockIsNegativeException;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -100,6 +101,10 @@ public class OrderServiceImpl implements OrderService {
             ProductSupplier produtSup = productSuppliers.stream().findFirst().filter(x 
             -> x.getId().getIdPersona() == dto.getPersonaId() && x.getId().getProducto() == dto.getProductId()).get();
             produtSup.setAmount(produtSup.getAmount() - dto.getAmount());
+       }
+       boolean productSupplierWithZeroStock =  productSuppliers.stream().anyMatch(n -> n.getAmount() < 0);
+       if(productSupplierWithZeroStock){
+            throw new StockIsNegativeException("No se pueden realizar compras donde el stock de los productos finalice por debajo de cero");
        }
        productoRepository.saveAll(productSuppliers);
     }
