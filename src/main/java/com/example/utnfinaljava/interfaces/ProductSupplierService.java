@@ -3,13 +3,14 @@ package com.example.utnfinaljava.interfaces;
 import java.util.List;
 
 import com.example.utnfinaljava.dtos.ProductSupplierDto;
-import com.example.utnfinaljava.dtos.ProductoProveedorListaDto;
+import com.example.utnfinaljava.dtos.ProductSupplierListDto;
+import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 
 public interface ProductSupplierService {
 
-    List<ProductSupplierDto> listaProductoProveedor();
+    List<ProductSupplierDto> getProductSupplier();
 
-    ProductoProveedorListaDto ListaProductosProveedor(Long productoId);
+    ProductSupplierListDto getProductSupplerByProductId(Long productoId);
 
-    ProductSupplierDto AddProductSupplier(ProductSupplierDto supplier);
+    ProductSupplierDto create(ProductSupplierDto supplier) throws AlreadyExistException;
 }

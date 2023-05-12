@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.utnfinaljava.dtos.AuthenticationRequest;
-import com.example.utnfinaljava.dtos.AuthenticationResponse;
+import com.example.utnfinaljava.dtos.AuthenticationRequestDto;
+import com.example.utnfinaljava.dtos.AuthenticationResponseDto;
 import com.example.utnfinaljava.dtos.RegisterRequest;
 import com.example.utnfinaljava.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
     
@@ -20,12 +20,12 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request ){
+    public ResponseEntity<AuthenticationResponseDto> register(@RequestBody RegisterRequest request ){
         return ResponseEntity.ok(service.Register(request));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> aunthenticateRequest(@RequestBody AuthenticationRequest request ){
+    public ResponseEntity<?> aunthenticateRequest(@RequestBody AuthenticationRequestDto request ){
         try {
             return ResponseEntity.ok(service.authenticate(request));
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.example.utnfinaljava.entities;
 
-import com.example.utnfinaljava.entities.claves_compuestas.PreciosId;
+import com.example.utnfinaljava.entities.claves_compuestas.PriceId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,7 +20,7 @@ import lombok.Data;
 public class Price implements Comparable<Price> {
     @JsonIgnore()
     @EmbeddedId
-    private PreciosId id;
+    private PriceId id;
 
     @Column(name="precio")
     private Long price;

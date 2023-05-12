@@ -30,7 +30,7 @@ public class Order {
     private Long personaId;
     @OneToOne()
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
-    public Supplier supplier;
+    public Customer customer;
 
 
     @OneToMany()

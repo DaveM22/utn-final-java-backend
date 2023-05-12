@@ -8,11 +8,11 @@ import lombok.Data;
 
 @Data
 @Embeddable
-public class PreciosId {
+public class PriceId {
     @Column(name="id_producto")
-    public Long productoId;
+    public Long productId;
     @Column(name="id_persona")
-    public Long idPersona;
+    public Long personaId;
     @Column(name="fecha_desde")
     public Date dateFrom;
 }

@@ -18,7 +18,6 @@ public class ProvinciaService {
 
     private final ProvinceRepository provinciaRepository;
 
-    private final ModelMapper modelMapper;
 
     public List<ProvinceDto> getProvincies() {
 
@@ -26,7 +25,7 @@ public class ProvinciaService {
         List<ProvinceDto> provincies = new ArrayList<ProvinceDto>();
         for (Province provincie : entities) {
             ProvinceDto dto = new ProvinceDto();
-            dto.setProvinceCode(provincie.getCodigo());
+            dto.setProvinceCode(provincie.getCodeProvince());
             dto.setName(provincie.getName());
             provincies.add(dto);
         }
@@ -41,11 +40,10 @@ public class ProvinciaService {
         }
 
         Province entity = new Province();
-        entity.setCodigo(province.getProvinceCode());
+        entity.setCodeProvince(province.getProvinceCode());
         entity.setName(province.getName());
         provinciaRepository.save(entity);
-        ProvinceDto dto = modelMapper.map(entity, ProvinceDto.class);
-        return dto;
+        return province;
     }
 
     @Transactional
@@ -55,7 +53,7 @@ public class ProvinciaService {
             throw new NotExistException("La provincia ingresada no existe");
         }
         Province entity = new Province();
-        entity.setCodigo(province.getProvinceCode());
+        entity.setCodeProvince(province.getProvinceCode());
         entity.setName(province.getName());
         provinciaRepository.save(entity);
         return province;

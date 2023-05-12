@@ -59,9 +59,10 @@ public class ProductServiceImpl implements ProductService {
             throw new NotExistException("El producto ingresado no existe");
         }
         Product pro = new Product();
+        pro.setId(product.getId());
         pro.setDescription(product.getDescription());
         pro.setCategoryId(product.getCategoryId());
-        this.save(product);
+        this.productRepository.save(pro);
         return product;
     }
 

@@ -39,7 +39,7 @@ public class Product {
     private List<ProductSupplier> suppliers = new ArrayList<>();
 
     public Long GetTotal(){
-        return this.suppliers.stream().mapToLong(o -> o.getCantidad()).sum();
+        return this.suppliers.stream().mapToLong(o -> o.getAmount()).sum();
     }
 
 }

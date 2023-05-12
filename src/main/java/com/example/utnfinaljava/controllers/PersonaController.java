@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.utnfinaljava.dtos.PersonaDto;
 import com.example.utnfinaljava.dtos.SupplierDto;
 import com.example.utnfinaljava.dtos.CustomerCompanyDto;
 import com.example.utnfinaljava.dtos.CustomerParticularDto;

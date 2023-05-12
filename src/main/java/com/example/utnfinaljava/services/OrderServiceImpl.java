@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.utnfinaljava.dtos.OrderDetailDto;
 import com.example.utnfinaljava.dtos.OrderDto;
+import com.example.utnfinaljava.dtos.OrderViewDto;
+import com.example.utnfinaljava.entities.Customer;
 import com.example.utnfinaljava.entities.Order;
 import com.example.utnfinaljava.entities.OrderDetail;
 import com.example.utnfinaljava.entities.ProductSupplier;
@@ -21,6 +23,7 @@ import com.example.utnfinaljava.repositories.OrderDetailRepository;
 import com.example.utnfinaljava.repositories.OrderRepository;
 import com.example.utnfinaljava.repositories.ProductSupplierRepository;
 import com.example.utnfinaljava.repositories.ProductoRepository;
+import com.example.utnfinaljava.util.exceptions.AmountIsZeroOrNullException;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -35,19 +38,40 @@ public class OrderServiceImpl implements OrderService {
 
     private final ProductSupplierRepository productoRepository;
 
-    private final ModelMapper modelMapper;
-
     @Override
-    public List<OrderDto> getOrders() {
-        var entities = orderRepository.findAll();
-        List<OrderDto> dtos = entities.stream().map(a -> modelMapper.map(a, OrderDto.class))
-        .collect(Collectors.toList());
+    public List<OrderViewDto> getOrders() {
+        List<Order> entities = orderRepository.findAll();
+        List<OrderViewDto> dtos = new ArrayList<OrderViewDto>();
+        for (Order order : entities) {
+            OrderViewDto dto = new OrderViewDto();
+            dto.setAmountProducts(order.GetTotalAmount());
+            Customer customer = order.getCustomer();
+            if(customer.getParticular() == null){
+                dto.setCustomerName(customer.getCompany().getBusinessName());
+            }
+            else{
+                dto.setCustomerName(customer.getParticular().getFirstName() + " " +customer.getParticular().getLastName());
+            }
+            dto.setDateFrom(order.getOrderDate());
+            dtos.add(dto);
+        }
         return dtos;
     }
 
     @Override
     @Transactional
     public void createOrder(OrderDto order) {
+
+        boolean anyAmountZero =  order.getDetails().stream().anyMatch(n -> n.amount == null || n.amount == 0);
+        if(anyAmountZero){
+            throw new AmountIsZeroOrNullException("No se pueden crear pedidos de productos sin cantidades especificadas");
+        }
+
+        boolean anyPriceZeroOrNull = order.getDetails().stream().anyMatch(n -> n.total == null || n.total == 0);
+        if(anyPriceZeroOrNull){
+            throw new AmountIsZeroOrNullException("No se pueden crear perdidos de productos sin precios registrados");
+        }
+        
        Order obj = new Order();
        obj.setOrderNumber(0L);
        obj.setOrderDate(order.getDate());
@@ -75,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
        for (OrderDetailDto dto : order.getDetails()) {
             ProductSupplier produtSup = productSuppliers.stream().findFirst().filter(x 
             -> x.getId().getIdPersona() == dto.getPersonaId() && x.getId().getProducto() == dto.getProductId()).get();
-            produtSup.setCantidad(produtSup.getCantidad() - dto.getAmount());
+            produtSup.setAmount(produtSup.getAmount() - dto.getAmount());
        }
        productoRepository.saveAll(productSuppliers);
     }

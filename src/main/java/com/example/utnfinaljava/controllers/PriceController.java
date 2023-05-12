@@ -27,7 +27,7 @@ public class PriceController {
     @GetMapping("/prices/{idProducto}/{idPersona}")
     public ResponseEntity<ResponseRequest> getPrices(@PathVariable("idProducto") Long idProducto, @PathVariable("idPersona") Long idPersona){
         ResponseRequest response = new ResponseRequest();
-        List<PriceDto> prices = priceService.getPriceById(idPersona, idPersona);
+        List<PriceDto> prices = priceService.getPriceById(idProducto, idPersona);
         response.setPayload(prices);
         return ResponseEntity.ok(response);
     };

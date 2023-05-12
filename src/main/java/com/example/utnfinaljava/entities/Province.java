@@ -12,7 +12,7 @@ import lombok.Data;
 public class Province {
     @Id
     @Column(name = "cod_provincia")
-    public Long codigo;
+    public Long codeProvince;
     @Column(name = "nombre_provincia")
     public String name;
 }

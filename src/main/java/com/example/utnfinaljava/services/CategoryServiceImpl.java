@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
         List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
         for (Category category : entities) {
             CategoryDto dto = new CategoryDto();
-            dto.setId(category.getId());
+            dto.setCategoryId(category.getId());
             dto.setName(category.getName());
             categoryDtos.add(dto);
         }
@@ -56,7 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public CategoryDto editCategoriaDto(CategoryDto category) {
         Category cat = new Category();
-        cat.setId(category.getId());
+        cat.setId(category.getCategoryId());
         cat.setName(category.getName());
         categoryRepository.save(cat);
         return category;

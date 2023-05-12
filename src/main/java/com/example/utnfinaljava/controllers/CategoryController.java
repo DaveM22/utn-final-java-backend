@@ -3,7 +3,6 @@ package com.example.utnfinaljava.controllers;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.utnfinaljava.dtos.CategoryDto;
-import com.example.utnfinaljava.entities.Category;
 import com.example.utnfinaljava.interfaces.CategoryService;
 import com.example.utnfinaljava.responses.ResponseRequest;
 

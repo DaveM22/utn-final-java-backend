@@ -7,5 +7,5 @@ import com.example.utnfinaljava.entities.claves_compuestas.ProductoProveedorId;
 
 public interface ProductSupplierRepository extends JpaRepository<ProductSupplier, ProductoProveedorId> {
     
-    List<ProductSupplier> findByProductoId(Long productoId);
+    List<ProductSupplier> findByProductId(Long productoId);
 }

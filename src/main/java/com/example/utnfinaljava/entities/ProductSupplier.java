@@ -28,21 +28,21 @@ public class ProductSupplier {
     private ProductoProveedorId id;
 
     @Column(name = "cantidad")
-    private Integer cantidad;
+    private Integer amount;
 
     @JsonIgnoreProperties("proveedores")
     @ManyToOne
     @JoinColumn(name = "id_producto", referencedColumnName = "id_producto", insertable = false, updatable = false)
-    private Product producto;
+    private Product product;
     
     @ManyToOne
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
-    private Supplier proveedor;
+    private Supplier supplier;
     
     @OneToMany
     @JoinColumns({
-        @JoinColumn(name = "id_producto", referencedColumnName = "id_producto"),
-        @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
+        @JoinColumn(name = "id_producto", referencedColumnName = "id_producto", insertable = false, updatable = false),
+        @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
     })
     private List<Price> prices = new ArrayList<>();
 
@@ -58,7 +58,15 @@ public class ProductSupplier {
                     vigentPrice = price;
             }
         }
-    
-        return vigentPrice;
+        if(vigentPrice == null)
+        {
+            Price price =  new Price();
+            price.setPrice(0L);
+            return price;
+        }
+        else{
+            return vigentPrice;
+        }
+        
     }
 }
