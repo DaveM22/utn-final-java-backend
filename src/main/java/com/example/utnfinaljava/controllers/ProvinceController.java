@@ -45,7 +45,6 @@ public class ProvinceController {
         return ResponseEntity.ok(response);
     }
 
-    @RolesAllowed("ADMIN")
     @PostMapping("/provinces")
     public ResponseEntity<ResponseRequest> postProvince(@Valid @RequestBody ProvinceDto province, BindingResult result) throws AlreadyExistException {
         ResponseRequest response = new ResponseRequest();

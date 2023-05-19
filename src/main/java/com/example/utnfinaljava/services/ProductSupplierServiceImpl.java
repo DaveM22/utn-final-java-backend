@@ -13,7 +13,7 @@ import com.example.utnfinaljava.entities.ProductSupplier;
 import com.example.utnfinaljava.entities.claves_compuestas.ProductoProveedorId;
 import com.example.utnfinaljava.interfaces.ProductSupplierService;
 import com.example.utnfinaljava.repositories.ProductSupplierRepository;
-import com.example.utnfinaljava.repositories.ProductoRepository;
+import com.example.utnfinaljava.repositories.ProductRepository;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 
 import jakarta.transaction.Transactional;
@@ -25,7 +25,7 @@ public class ProductSupplierServiceImpl implements ProductSupplierService {
 
     private final ProductSupplierRepository productoProveedorRepository;
 
-    private final ProductoRepository productoRepository;
+    private final ProductRepository productoRepository;
     
 
     @Override

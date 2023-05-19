@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.utnfinaljava.config.mappers.ProvinceMapper;
 import com.example.utnfinaljava.dtos.ProvinceDto;
 import com.example.utnfinaljava.entities.Province;
 import com.example.utnfinaljava.interfaces.ProvinceService;
@@ -19,25 +20,19 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class ProvinceServiceImpl implements ProvinceService {
 
 
-    
-    private final ProvinceRepository provinciaRepository;
+    @Autowired
+    private ProvinceRepository provinciaRepository;
 
+    @Autowired
+    private ProvinceMapper provinceMapper;
     
-    public List<ProvinceDto> getProvincies() {
-
-        var entities = provinciaRepository.findAll();
-        List<ProvinceDto> provincies = new ArrayList<ProvinceDto>();
-        for (Province provincie : entities) {
-            ProvinceDto dto = new ProvinceDto();
-            dto.setProvinceCode(provincie.getCodeProvince());
-            dto.setName(provincie.getName());
-            provincies.add(dto);
-        }
-        return provincies;
+    public List<ProvinceDto> getProvincies() 
+    {
+        List<Province> provinces = provinciaRepository.findAll();
+        return provinceMapper.provinceListToProvinceListDto(provinces);
     }
 
     @Transactional
@@ -47,10 +42,9 @@ public class ProvinceServiceImpl implements ProvinceService {
             throw new AlreadyExistException("El código de la provincia ingresado ya existe");
         }
 
-        Province entity = new Province();
-        entity.setCodeProvince(province.getProvinceCode());
-        entity.setName(province.getName());
-        provinciaRepository.save(entity);
+        Province entity = provinceMapper.provinceDtoToProvince(province);
+        Province save = provinciaRepository.save(entity);
+        province = provinceMapper.provinceToProvinceDto(save);
         return province;
     }
 
@@ -60,10 +54,9 @@ public class ProvinceServiceImpl implements ProvinceService {
         if (notExist) {
             throw new NotExistException("La provincia ingresada no existe");
         }
-        Province entity = new Province();
-        entity.setCodeProvince(province.getProvinceCode());
-        entity.setName(province.getName());
-        provinciaRepository.save(entity);
+        Province entity = provinceMapper.provinceDtoToProvince(province);
+        Province save = provinciaRepository.save(entity);
+        province = provinceMapper.provinceToProvinceDto(save);
         return province;
     }
 

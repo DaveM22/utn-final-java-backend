@@ -2,6 +2,7 @@ package com.example.utnfinaljava.security;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
@@ -16,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 
-
+@EnableJpaRepositories
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -34,10 +35,11 @@ public class WebSecurityConfig {
             .and()
             .csrf()
             .disable()
-            .authorizeHttpRequests()
+/*             .authorizeHttpRequests()
             .requestMatchers("/api/**")
-            .authenticated()
-            .requestMatchers("/auth/**")
+            .authenticated() */
+            .authorizeHttpRequests()
+            .requestMatchers("/auth/**", "/**")
             .permitAll()
             .anyRequest()
             .permitAll()

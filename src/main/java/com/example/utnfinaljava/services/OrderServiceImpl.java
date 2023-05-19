@@ -22,7 +22,7 @@ import com.example.utnfinaljava.interfaces.ProductSupplierService;
 import com.example.utnfinaljava.repositories.OrderDetailRepository;
 import com.example.utnfinaljava.repositories.OrderRepository;
 import com.example.utnfinaljava.repositories.ProductSupplierRepository;
-import com.example.utnfinaljava.repositories.ProductoRepository;
+import com.example.utnfinaljava.repositories.ProductRepository;
 import com.example.utnfinaljava.util.exceptions.AmountIsZeroOrNullException;
 import com.example.utnfinaljava.util.exceptions.StockIsNegativeException;
 
@@ -47,12 +47,7 @@ public class OrderServiceImpl implements OrderService {
             OrderViewDto dto = new OrderViewDto();
             dto.setAmountProducts(order.GetTotalAmount());
             Customer customer = order.getCustomer();
-            if(customer.getParticular() == null){
-                dto.setCustomerName(customer.getCompany().getBusinessName());
-            }
-            else{
-                dto.setCustomerName(customer.getParticular().getFirstName() + " " +customer.getParticular().getLastName());
-            }
+
             dto.setDateFrom(order.getOrderDate());
             dtos.add(dto);
         }

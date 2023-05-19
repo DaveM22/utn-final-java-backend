@@ -3,10 +3,12 @@ package com.example.utnfinaljava.services;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+
+import com.example.utnfinaljava.config.mappers.ProductMapper;
 import com.example.utnfinaljava.dtos.ProductDto;
 import com.example.utnfinaljava.entities.Product;
 import com.example.utnfinaljava.interfaces.ProductService;
-import com.example.utnfinaljava.repositories.ProductoRepository;
+import com.example.utnfinaljava.repositories.ProductRepository;
 import com.example.utnfinaljava.util.exceptions.NotExistException;
 
 import jakarta.transaction.Transactional;
@@ -16,32 +18,22 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductoRepository productRepository;
+    private final ProductRepository productRepository;
+
+    private final ProductMapper productMapper;
+
     @Override
     public List<ProductDto> getProducts() {
-
         List<Product> entities = productRepository.findAll();
-        List<ProductDto> dtos = new ArrayList<ProductDto>();
-        for (Product product : entities) {
-            ProductDto dto = new ProductDto();
-            dto.setId(product.getId());
-            dto.setAmount(product.GetTotal());
-            dto.setCategoryId(product.getCategoryId());
-            dto.setCategoryName(product.getCategory().getName());
-            dto.setDescription(product.getDescription());
-            dtos.add(dto);
-        }
-        return dtos;
+        return productMapper.ProductListToProductDtoList(entities);
     }
 
     @Override
     @Transactional
     public ProductDto save(ProductDto product) {
-        Product pro = new Product();
-        pro.setDescription(product.getDescription());
-        pro.setCategoryId(product.getCategoryId());
-        Product newProduct =  this.productRepository.save(pro);
-        product.setId(newProduct.getId());
+        Product pro = productMapper.ProductDtoToProduct(product);
+        Product save = productRepository.save(pro);
+        product = productMapper.ProductToProductDto(save);
         return product;
     }
 
@@ -52,11 +44,9 @@ public class ProductServiceImpl implements ProductService {
         if (notExist) {
             throw new NotExistException("El producto ingresado no existe");
         }
-        Product pro = new Product();
-        pro.setId(product.getId());
-        pro.setDescription(product.getDescription());
-        pro.setCategoryId(product.getCategoryId());
-        this.productRepository.save(pro);
+        Product pro = productMapper.ProductDtoToProduct(product);
+        Product save = productRepository.save(pro);
+        product = productMapper.ProductToProductDto(save);
         return product;
     }
 

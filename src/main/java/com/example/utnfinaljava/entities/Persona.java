@@ -19,16 +19,12 @@ public class Persona {
     @Column(name = "id_persona")
     private Long id;
     @Column(name = "direccion")
-    private String direccion;
+    private String direction;
     @Column(name = "telefono")
-    private String telefono;
+    private String phoneNumber;
     @Column(name = "direccion_email")
     private String email;
-    @Column(name = "pagina_web")
-    private String paginaWeb;
-    @Column(name = "cod_postal")
-    private Long postalCode;
     @OneToOne
-    @JoinColumn(name = "cod_postal", referencedColumnName = "cod_postal", insertable = false, updatable = false)
-    private Location localidad;
+    @JoinColumn(name = "cod_postal", referencedColumnName = "cod_postal", insertable = true, updatable = true)
+    private Location location;
 }

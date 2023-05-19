@@ -18,5 +18,5 @@ public class LocationDto {
     @Positive(message = "El valor de la provincia ingresada es inválido o inexistente")
     private Long provinceCode;
 
-    private String provinceName;
+    private String name;
 }

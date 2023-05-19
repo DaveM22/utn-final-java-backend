@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.utnfinaljava.dtos.PersonaDto;
 import com.example.utnfinaljava.dtos.SupplierDto;
+import com.example.utnfinaljava.config.mappers.CustomerParticularMapper;
 import com.example.utnfinaljava.dtos.CustomerCompanyDto;
 import com.example.utnfinaljava.dtos.CustomerParticularDto;
 import com.example.utnfinaljava.entities.Customer;
@@ -32,82 +33,27 @@ public class PersonaServiceImpl implements PersonaService {
 
     private final PersonaRepository personaRepository;
 
-    private final CustomerParticularRepository customerParticularRepository;
-
     private final CustomerCompanyRepository customerCompanyRepository;
 
     private final SupplierRepository supplierRepository;
 
-	@Override
-	public List<CustomerParticularDto> getCustomerParticular() {
-		var entities = customerRepository.findByTypeCustomerIdEquals(1L);
-        List<CustomerParticularDto> particularDtos = new ArrayList<CustomerParticularDto>();
-        for (Customer customer : entities) {
-            CustomerParticularDto dto = new CustomerParticularDto();
-            dto.setFirstName(customer.getParticular().getFirstName());
-            dto.setLastName(customer.getParticular().getLastName());
-            dto.setDni(customer.getParticular().getDni());
-            dto.setDirection(customer.getPersona().getDireccion());
-            dto.setPhoneNumber(customer.getPersona().getTelefono());
-            dto.setId(customer.getId());
-            dto.setPostalCod(customer.getPersona().getPostalCode());
-            dto.setEmail(customer.getPersona().getEmail());
-            particularDtos.add(dto);
-        }
-        return particularDtos;
-    }
 
     @Override
     public List<CustomerCompanyDto> getCustomerCompany() {
-        var entities = customerRepository.findByTypeCustomerIdEquals(2L);
+        List<Customer> entities = customerRepository.findAll();
         List<CustomerCompanyDto> companies = new ArrayList<CustomerCompanyDto>();
         for (Customer customer : entities) {
             CustomerCompanyDto dto = new CustomerCompanyDto();
-            dto.setBusinessName(customer.getCompany().getBusinessName());
-            dto.setCuit(customer.getCompany().getCuit());
-            dto.setDirection(customer.getPersona().getDireccion());
-            dto.setPhoneNumber(customer.getPersona().getTelefono());
+            dto.setDirection(customer.getPersona().getDirection());
+            dto.setPhoneNumber(customer.getPersona().getPhoneNumber());
             dto.setId(customer.getId());
             dto.setEmail(customer.getPersona().getEmail());
-            dto.setPostalCod(customer.getPersona().getPostalCode());
+            dto.setPostalCode(customer.getPersona().getLocation().getPostalCode());
             companies.add(dto);
         }
         return companies;
     }
 
-
-
-	@Override
-    @Transactional
-	public CustomerParticularDto save(CustomerParticularDto customer) {
-		Persona per = new Persona();
-        per.setId(customer.getId());
-        per.setDireccion(customer.getDirection());
-        per.setEmail(customer.getEmail());
-        per.setTelefono(customer.getPhoneNumber());
-        per.setPostalCode(2000L);
-        Persona saved = personaRepository.save(per);
-        Customer customerEntity = new Customer();
-        customerEntity.setId(saved.getId());
-        customerEntity.setTypeCustomerId(1L);
-        customerRepository.save(customerEntity);
-        CustomerParticular particular = new CustomerParticular();
-        particular.setFirstName(customer.getFirstName());
-        particular.setLastName(customer.getLastName());
-        particular.setDni(customer.getDni());
-        particular.setId(saved.getId());
-        customerParticularRepository.save(particular);
-        customer.setId(saved.getId());
-        return customer;
-	}
-
-    @Override
-    @Transactional
-    public void RemoveCustomerParticular(Long id) {
-        this.customerRepository.deleteById(id);
-        this.customerParticularRepository.deleteById(id);
-        this.personaRepository.deleteById(id);
-    }
 
     @Override
     @Transactional
@@ -122,14 +68,13 @@ public class PersonaServiceImpl implements PersonaService {
     public CustomerCompanyDto save(CustomerCompanyDto customer) {
         Persona per = new Persona();
         per.setId(customer.getId());
-        per.setDireccion(customer.getDirection());
+        per.setDirection(customer.getDirection());
         per.setEmail(customer.getEmail());
-        per.setTelefono(customer.getPhoneNumber());
-        per.setPostalCode(2000L);
+        per.setPhoneNumber(customer.getPhoneNumber());
+        per.getLocation().setPostalCode(2000L);
         Persona saved = personaRepository.save(per);
         Customer customerEntity = new Customer();
         customerEntity.setId(saved.getId());
-        customerEntity.setTypeCustomerId(2L);
         customerRepository.save(customerEntity);
         CustomerCompany company = new CustomerCompany();
         company.setId(saved.getId());
@@ -142,17 +87,17 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public List<SupplierDto> getSupplier() {
-        var entities = supplierRepository.findAll();
+        List<Supplier> entities = supplierRepository.findAll();
         List<SupplierDto> supplierDtos = new ArrayList<SupplierDto>();
         for (Supplier supplier : entities) {
             SupplierDto dto = new SupplierDto();
             dto.setBusinessName(supplier.getBusinessName());
             dto.setCuit(supplier.getCuit());
-            dto.setDirection(supplier.getPersona().getDireccion());
-            dto.setPhoneNumber(supplier.getPersona().getTelefono());
+            dto.setDirection(supplier.getPersona().getDirection());
+            dto.setPhoneNumber(supplier.getPersona().getPhoneNumber());
             dto.setId(supplier.getId());
             dto.setEmail(supplier.getPersona().getEmail());
-            dto.setPostalCod(supplier.getPersona().getPostalCode());
+            dto.setPostalCode(supplier.getPersona().getLocation().getPostalCode());
             supplierDtos.add(dto);
         }
         return supplierDtos;
@@ -170,10 +115,10 @@ public class PersonaServiceImpl implements PersonaService {
     public SupplierDto save(SupplierDto supplier) {
         Persona per = new Persona();
         per.setId(supplier.getId());
-        per.setDireccion(supplier.getDirection());
+        per.setDirection(supplier.getDirection());
         per.setEmail(supplier.getEmail());
-        per.setTelefono(supplier.getPhoneNumber());
-        per.setPostalCode(2000L);
+        per.setPhoneNumber(supplier.getPhoneNumber());
+        per.getLocation().setPostalCode(2050L);
         Persona saved = personaRepository.save(per);
         Supplier newSupplier = new Supplier();
         newSupplier.setBusinessName(supplier.getBusinessName());

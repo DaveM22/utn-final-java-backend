@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.utnfinaljava.config.mappers.CategoryMapper;
 import com.example.utnfinaljava.dtos.CategoryDto;
 import com.example.utnfinaljava.dtos.CustomerParticularDto;
 import com.example.utnfinaljava.entities.Category;
@@ -23,26 +24,21 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    private final CategoryMapper categoryMapper;
+
 
     @Override
     public List<CategoryDto> getCategories() {
         List<Category> entities = categoryRepository.findAll();
-        List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
-        for (Category category : entities) {
-            CategoryDto dto = new CategoryDto();
-            dto.setCategoryId(category.getId());
-            dto.setName(category.getName());
-            categoryDtos.add(dto);
-        }
-        return categoryDtos;
+        return categoryMapper.categoryListToCategoryListDto(entities);
     }
 
     @Override
     @Transactional
     public CategoryDto createCategory(CategoryDto category) {
-        Category cat = new Category();
-        cat.setName(category.getName());
-        categoryRepository.save(cat);
+        Category cat = categoryMapper.categoryDtoToCategory(category);
+        Category saved = categoryRepository.save(cat);
+        category = categoryMapper.categoryToCategoryDto(saved);
         return category;
     }
 
@@ -55,10 +51,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryDto editCategoriaDto(CategoryDto category) {
-        Category cat = new Category();
-        cat.setId(category.getCategoryId());
-        cat.setName(category.getName());
-        categoryRepository.save(cat);
+        Category cat = categoryMapper.categoryDtoToCategory(category);
+        Category saved = categoryRepository.save(cat);
+        category = categoryMapper.categoryToCategoryDto(saved);
         return category;
     }
     

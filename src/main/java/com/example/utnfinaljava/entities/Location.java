@@ -20,10 +20,7 @@ public class Location {
     @Column(name = "ciudad")
     private String city;
 
-    @Column(name = "cod_provincia")
-    private Long codProvince;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cod_provincia", referencedColumnName = "cod_provincia", insertable = false, updatable = false)
+    @OneToOne()
+    @JoinColumn(name = "cod_provincia", referencedColumnName = "cod_provincia")
     private Province province;
 }

@@ -38,7 +38,6 @@ public class LocationController {
         return ResponseEntity.ok(response);
     }
 
-    @RolesAllowed("ADMIN")
     @PostMapping("/locations")
     public ResponseEntity<ResponseRequest> postLocation(@Valid @RequestBody LocationDto location, BindingResult result) throws AlreadyExistException, NotExistException {
         ResponseRequest response = new ResponseRequest();
@@ -56,7 +55,6 @@ public class LocationController {
         }
     }
 
-    @RolesAllowed("ADMIN")
     @PutMapping("/locations")
     @ResponseBody
     public ResponseEntity<ResponseRequest> putLocation(@Valid @RequestBody LocationDto location,  BindingResult result) throws AlreadyExistException, NotExistException{
@@ -75,7 +73,6 @@ public class LocationController {
         }
     }
 
-    @RolesAllowed("ADMIN")
     @DeleteMapping("/locations/{code}")
     public ResponseEntity<ResponseRequest> deleteLocation(@PathVariable("code") Long code) throws NotExistException{
         ResponseRequest response = new ResponseRequest();

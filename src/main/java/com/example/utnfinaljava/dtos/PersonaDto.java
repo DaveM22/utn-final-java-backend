@@ -9,5 +9,5 @@ public class PersonaDto {
     private String direction;
     private String phoneNumber;
     private String email;
-    private Long postalCod;
+    private Long postalCode;
 }
