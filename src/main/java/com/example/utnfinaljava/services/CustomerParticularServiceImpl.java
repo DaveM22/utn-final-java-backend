@@ -15,11 +15,12 @@ import com.example.utnfinaljava.repositories.CustomerParticularRepository;
 import com.example.utnfinaljava.repositories.CustomerRepository;
 import com.example.utnfinaljava.repositories.PersonaRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class CustomerServiceImpl implements CustomerParticularService {
+public class CustomerParticularServiceImpl implements CustomerParticularService {
 
 
     private final CustomerParticularMapper customerParticularMapper;
@@ -39,6 +40,7 @@ public class CustomerServiceImpl implements CustomerParticularService {
     }
 
     @Override
+    @Transactional
     public CustomerParticularDto create(CustomerParticularDto customer) {
         Persona cus = customerParticularMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerParticularMapper.customerParticularDtoToCustomer(customer);
@@ -53,11 +55,15 @@ public class CustomerServiceImpl implements CustomerParticularService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-
+        this.customerParticularRepository.deleteById(id);
+        this.customerRepository.deleteById(id);
+        this.personaRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public CustomerParticularDto edit(CustomerParticularDto customer) {
         Persona cus = customerParticularMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerParticularMapper.customerParticularDtoToCustomer(customer);

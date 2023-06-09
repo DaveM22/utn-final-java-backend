@@ -11,7 +11,7 @@ public interface PersonaService {
 
     public List<SupplierDto> getSupplier();
 
-    public void RemoveCustomerCompany(Long id);
+    public void delete(Long id);
 
     public void RemoveSupplier(Long id);
 

@@ -51,13 +51,13 @@ public class LocationServiceImpl implements LocationService {
     public LocationDto edit(LocationDto location) throws NotExistException {
 
         boolean provinceNotExist = !provinceRepository.existsById(location.getPostalCode());
-        if (provinceNotExist) {
+        if (!provinceNotExist) {
             throw new NotExistException("La provincia ingresada no existe");
         }
 
         Location loc = locationMapper.locationDtoToLocation(location);
-        locationRepository.save(loc);
-        return location;
+        Location saved = locationRepository.save(loc);
+        return locationMapper.locationToLocationDto(saved);
     }
 
     @Transactional

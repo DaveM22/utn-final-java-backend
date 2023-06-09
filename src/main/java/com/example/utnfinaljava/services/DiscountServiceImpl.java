@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.utnfinaljava.config.mappers.DiscountMapper;
 import com.example.utnfinaljava.dtos.DiscountDto;
 import com.example.utnfinaljava.entities.Discount;
 import com.example.utnfinaljava.interfaces.DiscountService;
@@ -20,6 +21,8 @@ import lombok.AllArgsConstructor;
 public class DiscountServiceImpl implements DiscountService  {
 
     private final DiscountRepository discountRepository;
+
+    private final DiscountMapper discountMapper;
 
     @Override
     public List<DiscountDto> getTodayDiscount() {
@@ -43,5 +46,19 @@ public class DiscountServiceImpl implements DiscountService  {
         }
         return dtos;
     }
+
+	@Override
+	public List<DiscountDto> getDiscounts() {
+		List<Discount> discounts = discountRepository.findAll();
+        List<DiscountDto> dtos = discountMapper.discountListToDiscountListDto(discounts);
+        return dtos;
+	}
+
+	@Override
+	public DiscountDto create(DiscountDto discount) {
+		Discount entity = this.discountMapper.discountDtoToDiscount(discount);
+        Discount saved = this.discountRepository.save(entity);
+        return this.discountMapper.discountToDiscountDto(saved);
+	}
     
 }

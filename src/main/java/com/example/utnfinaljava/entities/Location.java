@@ -1,5 +1,6 @@
 package com.example.utnfinaljava.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,7 +21,7 @@ public class Location {
     @Column(name = "ciudad")
     private String city;
 
-    @OneToOne()
-    @JoinColumn(name = "cod_provincia", referencedColumnName = "cod_provincia")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cod_provincia", referencedColumnName = "cod_provincia", insertable = true, updatable =  true)
     private Province province;
 }

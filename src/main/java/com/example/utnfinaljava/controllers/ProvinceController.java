@@ -58,12 +58,12 @@ public class ProvinceController {
         }
         else{
             ProvinceDto created = provinceService.create(province);
+            response.setMessage("Se ha creado la provincia de manera exitosa");
             response.setPayload(created);
             return ResponseEntity.ok(response);
         }
     }
 
-    @RolesAllowed("ADMIN")
     @PutMapping("/provinces")
     public ResponseEntity<ResponseRequest> putProvince(@Valid @RequestBody ProvinceDto province, BindingResult result) throws NotExistException {
         ResponseRequest response = new ResponseRequest();
@@ -83,7 +83,6 @@ public class ProvinceController {
         }
     }
 
-    @RolesAllowed("ADMIN")
     @DeleteMapping("/provinces/{id}")
     public ResponseEntity<ResponseRequest> deleteCompany(@PathVariable("id") Long id) throws NotExistException{
         ResponseRequest response = new ResponseRequest();

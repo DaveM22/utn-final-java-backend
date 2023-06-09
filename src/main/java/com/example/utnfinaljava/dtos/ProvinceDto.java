@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class ProvinceDto {
-    private Long provinceCode;
+    private long provinceCode;
     @Size(max = 60, message = "La cantidad de caracteres ingresado superior al maximo permitido")
     @NotBlank(message = "El campo nombre no puede estar vacio")
     private String name;

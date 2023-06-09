@@ -10,9 +10,9 @@ import lombok.Data;
 public class ProductoProveedorId implements Serializable {
  
     @Column(name = "id_producto")
-    public Long producto;
+    public Long productId;
 
     @Column(name = "id_persona")
-    private Long idPersona;
+    private Long personaId;
 
 }

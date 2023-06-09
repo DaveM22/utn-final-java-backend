@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.utnfinaljava.config.mappers.PriceMapper;
 import com.example.utnfinaljava.dtos.PriceDto;
 import com.example.utnfinaljava.entities.Price;
 import com.example.utnfinaljava.entities.claves_compuestas.PriceId;
@@ -20,6 +21,8 @@ import lombok.AllArgsConstructor;
 public class PriceServiceImpl implements PriceService {
 
     private final PriceRepository priceRepository;
+
+    private final PriceMapper priceMapper;
 
     @Override
     public List<PriceDto> getPriceById(Long productId, Long personaId) {
@@ -44,15 +47,9 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public PriceDto SetPrice(PriceDto dto) {
-        PriceId id = new PriceId();
-        id.setDateFrom(dto.getDateFrom());
-        id.setPersonaId(dto.getPersonaId());
-        id.setProductId(dto.getProductId());
-        Price price = new Price();
-        price.setId(id);
-        price.setPrice(dto.getPrice());
-        priceRepository.save(price);
-        return dto;
+        Price entity = priceMapper.priceDtoToPrice(dto);
+        Price saved = priceRepository.save(entity);
+        return priceMapper.priceToPriceDto(saved);
     }
 
 }

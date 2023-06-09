@@ -85,8 +85,8 @@ public class OrderServiceImpl implements OrderService {
             detail.setTotal(detailDto.getTotal());
             details.add(detail);
             ProductoProveedorId id = new ProductoProveedorId();
-            id.setIdPersona(detailDto.getPersonaId());
-            id.setProducto(detailDto.getProductId());
+            id.setPersonaId(detailDto.getPersonaId());
+            id.setProductId(detailDto.getProductId());
             ids.add(id);
        }
        orderDetailRepository.saveAll(details);
@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
        List<ProductSupplier> productSuppliers = productoRepository.findAllById(ids);
        for (OrderDetailDto dto : order.getDetails()) {
             ProductSupplier produtSup = productSuppliers.stream().findFirst().filter(x 
-            -> x.getId().getIdPersona() == dto.getPersonaId() && x.getId().getProducto() == dto.getProductId()).get();
+            -> x.getId().getPersonaId() == dto.getPersonaId() && x.getId().getProductId() == dto.getProductId()).get();
             produtSup.setAmount(produtSup.getAmount() - dto.getAmount());
        }
        boolean productSupplierWithZeroStock =  productSuppliers.stream().anyMatch(n -> n.getAmount() < 0);
