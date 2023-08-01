@@ -113,6 +113,11 @@
                 <source>17</source> <!-- depending on your project -->
                 <target>17</target> <!-- depending on your project -->
                 <annotationProcessorPaths>
+					<path>
+						<groupId>org.projectlombok</groupId>
+						<artifactId>lombok</artifactId>
+						<version>1.18.26</version>
+					</path>
                     <path>
                         <groupId>org.mapstruct</groupId>
                         <artifactId>mapstruct-processor</artifactId>
