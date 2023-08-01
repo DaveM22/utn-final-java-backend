@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.utnfinaljava.config.mappers.PriceMapper;
 import com.example.utnfinaljava.dtos.PriceDto;
 import com.example.utnfinaljava.entities.Price;

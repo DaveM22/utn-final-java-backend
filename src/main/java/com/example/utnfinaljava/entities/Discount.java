@@ -1,7 +1,5 @@
 package com.example.utnfinaljava.entities;
 
-import java.util.Date;
-
 import com.example.utnfinaljava.entities.claves_compuestas.DiscountId;
 
 import jakarta.persistence.Column;

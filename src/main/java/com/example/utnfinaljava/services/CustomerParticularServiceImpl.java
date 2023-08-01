@@ -10,7 +10,6 @@ import com.example.utnfinaljava.entities.Customer;
 import com.example.utnfinaljava.entities.CustomerParticular;
 import com.example.utnfinaljava.entities.Persona;
 import com.example.utnfinaljava.interfaces.CustomerParticularService;
-import com.example.utnfinaljava.repositories.CustomerCompanyRepository;
 import com.example.utnfinaljava.repositories.CustomerParticularRepository;
 import com.example.utnfinaljava.repositories.CustomerRepository;
 import com.example.utnfinaljava.repositories.PersonaRepository;
