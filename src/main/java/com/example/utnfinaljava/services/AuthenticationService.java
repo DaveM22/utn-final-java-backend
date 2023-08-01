@@ -11,7 +11,6 @@ import com.example.utnfinaljava.dtos.RegisterRequest;
 import com.example.utnfinaljava.entities.User;
 import com.example.utnfinaljava.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 
 @Service
 @RequiredArgsConstructor
