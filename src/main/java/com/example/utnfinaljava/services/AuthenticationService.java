@@ -26,7 +26,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponseDto Register(RegisterRequest request) {
-        var user = new User();
+        User user = new User();
         user.setEmail(request.getEmail());
         user.setClave(passwordEncoder.encode(request.getPassword()));
         user.setNombreUsuario(request.getName());
@@ -40,9 +40,9 @@ public class AuthenticationService {
     public AuthenticationResponseDto authenticate(AuthenticationRequestDto request) {
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        var user = usuarioRepository.findByEmail(request.getEmail())
+        User user = usuarioRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("no encontrado"));
-        var jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken(user);
         return AuthenticationResponseDto.builder().token(jwtToken).build();
     }
 }
