@@ -43,9 +43,9 @@ public class CategoryController {
     @PostMapping("/categories")
     public ResponseEntity<ResponseRequest> postCategory(@Valid @RequestBody CategoryDto category, BindingResult result  ){
         ResponseRequest response = new ResponseRequest();
-        categoriaService.createCategory(category);
+        CategoryDto dto = categoriaService.createCategory(category);
         response.setMessage("Se ha creado la categoría de manera exitosa");
-        response.setPayload(category);
+        response.setPayload(dto);
         return ResponseEntity.ok(response);
     }
 

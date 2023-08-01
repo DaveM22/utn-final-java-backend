@@ -36,6 +36,7 @@ public class PriceController {
     public ResponseEntity<ResponseRequest> postPrice(@RequestBody PriceDto price){
         ResponseRequest response = new ResponseRequest();
         PriceDto dto = priceService.SetPrice(price);
+        response.setMessage("Se ha establecido un nuevo precio para el producto de manera existosa");
         response.setPayload(dto);
         return ResponseEntity.ok(response);
     }

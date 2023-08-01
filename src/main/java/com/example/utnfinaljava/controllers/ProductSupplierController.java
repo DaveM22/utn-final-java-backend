@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,5 +53,17 @@ public class ProductSupplierController {
         response.setPayload(dto);
         return ResponseEntity.ok(response); 
     }
+
+
+    @PutMapping("/product-supplier/{idProducto}/edit")
+    public ResponseEntity<ResponseRequest> editProductSupplier(@RequestBody ProductSupplierDto productSupplier,@PathVariable("idProducto") Long idProducto) throws AlreadyExistException {
+        ResponseRequest response = new ResponseRequest();
+        ProductSupplierDto dto = this.productoProveedorServiceImpl.edit(productSupplier);
+        response.setMessage("Se ha agregado stock al producto de manera exitosa");
+        response.setPayload(dto);
+        return ResponseEntity.ok(response); 
+    }
+
+    
 
 }

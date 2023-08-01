@@ -8,5 +8,6 @@ public class OrderDetailDto {
     public Long productId;
     public Long personaId;
     public Integer amount;
+    public Float price;
     public Long total;
 }

@@ -38,8 +38,8 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto createCategory(CategoryDto category) {
         Category cat = categoryMapper.categoryDtoToCategory(category);
         Category saved = categoryRepository.save(cat);
-        category = categoryMapper.categoryToCategoryDto(saved);
-        return category;
+        CategoryDto dto = categoryMapper.categoryToCategoryDto(saved);
+        return dto;
     }
 
     @Override

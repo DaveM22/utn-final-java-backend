@@ -28,16 +28,21 @@ public class Order {
     private Date orderDate;
     @Column(name = "id_persona")
     private Long personaId;
+    @Column(name = "descuento")
+    private Float discount;
+    
     @OneToOne()
-    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
-    public Customer customer;
+    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable=false, updatable=false)
+    public CustomerCompany company;
 
+    @OneToOne()
+    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable=false, updatable=false)
+    public CustomerParticular particular;
 
     @OneToMany()
     @JoinColumn(name = "nro_pedido", referencedColumnName = "nro_pedido")
     private List<OrderDetail> details = new ArrayList<>();
     
-
     public Long GetTotalAmount(){
         if(details.size() == 0){
             return null;

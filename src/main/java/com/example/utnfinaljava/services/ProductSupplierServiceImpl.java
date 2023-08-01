@@ -67,6 +67,19 @@ public class ProductSupplierServiceImpl implements ProductSupplierService {
        return supplier;
     }
 
+    @Override
+    @Transactional
+    public ProductSupplierDto edit(ProductSupplierDto supplier) {
+       ProductoProveedorId id = new ProductoProveedorId();
+       id.setPersonaId(supplier.getPersonaId());
+       id.setProductId(supplier.getProductId());
+       ProductSupplier newProductSupplier = productSupplierMapper.productSupplierDtoToProductSupplier(supplier);
+       ProductSupplier saved = productoProveedorRepository.save(newProductSupplier);
+       return supplier;
+    }
+
+    
+
     
 
  

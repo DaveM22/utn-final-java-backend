@@ -13,4 +13,6 @@ public interface ProductSupplierService {
     ProductSupplierListDto getProductSupplerByProductId(Long productoId);
 
     ProductSupplierDto create(ProductSupplierDto supplier) throws AlreadyExistException;
+
+    ProductSupplierDto edit(ProductSupplierDto supplier);
 }
