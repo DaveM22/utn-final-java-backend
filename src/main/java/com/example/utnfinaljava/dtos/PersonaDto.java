@@ -1,6 +1,5 @@
 package com.example.utnfinaljava.dtos;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data

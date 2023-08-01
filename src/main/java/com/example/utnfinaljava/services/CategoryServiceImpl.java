@@ -1,16 +1,10 @@
 package com.example.utnfinaljava.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.utnfinaljava.config.mappers.CategoryMapper;
 import com.example.utnfinaljava.dtos.CategoryDto;
-import com.example.utnfinaljava.dtos.CustomerParticularDto;
 import com.example.utnfinaljava.entities.Category;
 import com.example.utnfinaljava.interfaces.CategoryService;
 import com.example.utnfinaljava.repositories.CategoryRepository;

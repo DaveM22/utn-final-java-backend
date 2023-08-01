@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.utnfinaljava.dtos.DiscountDto;
-import com.example.utnfinaljava.dtos.PriceDto;
 import com.example.utnfinaljava.interfaces.DiscountService;
 import com.example.utnfinaljava.responses.ResponseRequest;
 

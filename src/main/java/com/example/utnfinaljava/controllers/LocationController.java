@@ -20,7 +20,6 @@ import com.example.utnfinaljava.util.error.ErrorMessages;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.NotExistException;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 
 @RestController

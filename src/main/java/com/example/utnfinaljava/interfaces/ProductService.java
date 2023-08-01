@@ -1,9 +1,6 @@
 package com.example.utnfinaljava.interfaces;
 
 import java.util.List;
-
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-
 import com.example.utnfinaljava.dtos.ProductDto;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.NotExistException;

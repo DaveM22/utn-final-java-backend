@@ -2,10 +2,6 @@ package com.example.utnfinaljava.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.aspectj.weaver.ast.Or;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.utnfinaljava.dtos.OrderDetailDto;
@@ -13,22 +9,15 @@ import com.example.utnfinaljava.dtos.OrderDetailReportDto;
 import com.example.utnfinaljava.dtos.OrderDto;
 import com.example.utnfinaljava.dtos.OrderReportDto;
 import com.example.utnfinaljava.dtos.OrderViewDto;
-import com.example.utnfinaljava.entities.Customer;
-import com.example.utnfinaljava.entities.CustomerCompany;
-import com.example.utnfinaljava.entities.CustomerParticular;
 import com.example.utnfinaljava.entities.Order;
 import com.example.utnfinaljava.entities.OrderDetail;
 import com.example.utnfinaljava.entities.ProductSupplier;
 import com.example.utnfinaljava.entities.claves_compuestas.OrderId;
 import com.example.utnfinaljava.entities.claves_compuestas.ProductoProveedorId;
 import com.example.utnfinaljava.interfaces.OrderService;
-import com.example.utnfinaljava.interfaces.ProductSupplierService;
-import com.example.utnfinaljava.repositories.CustomerCompanyRepository;
-import com.example.utnfinaljava.repositories.CustomerParticularRepository;
 import com.example.utnfinaljava.repositories.OrderDetailRepository;
 import com.example.utnfinaljava.repositories.OrderRepository;
 import com.example.utnfinaljava.repositories.ProductSupplierRepository;
-import com.example.utnfinaljava.repositories.ProductRepository;
 import com.example.utnfinaljava.util.exceptions.AmountIsZeroOrNullException;
 import com.example.utnfinaljava.util.exceptions.StockIsNegativeException;
 

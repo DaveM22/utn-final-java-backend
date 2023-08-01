@@ -2,7 +2,6 @@ package com.example.utnfinaljava.interfaces;
 
 import java.util.List;
 import com.example.utnfinaljava.dtos.CustomerCompanyDto;
-import com.example.utnfinaljava.dtos.CustomerParticularDto;
 import com.example.utnfinaljava.dtos.SupplierDto;
 
 public interface PersonaService {
