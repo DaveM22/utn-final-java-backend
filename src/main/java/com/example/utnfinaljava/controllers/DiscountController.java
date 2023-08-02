@@ -1,10 +1,14 @@
 package com.example.utnfinaljava.controllers;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +51,14 @@ public class DiscountController {
         DiscountDto dto = discountService.create(discountDto);
         response.setPayload(dto);
         response.setMessage("Se ha agregado el descuento de manera exitosa");
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/discount/{fecha}/{amount}")
+    public ResponseEntity<ResponseRequest> delete(@PathVariable("amount") Float amount, @DateTimeFormat(pattern= "yyyy-MM-dd") Date fecha){
+        ResponseRequest response = new ResponseRequest();
+        discountService.delete(fecha, amount);
+        response.setMessage("Se ha borrado el descuento de manera existosa");
         return ResponseEntity.ok(response);
     }
 }

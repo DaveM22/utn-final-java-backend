@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Service;
 import com.example.utnfinaljava.config.mappers.DiscountMapper;
 import com.example.utnfinaljava.dtos.DiscountDto;
 import com.example.utnfinaljava.entities.Discount;
+import com.example.utnfinaljava.entities.claves_compuestas.DiscountId;
 import com.example.utnfinaljava.interfaces.DiscountService;
 import com.example.utnfinaljava.repositories.DiscountRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -55,10 +58,20 @@ public class DiscountServiceImpl implements DiscountService  {
 	}
 
 	@Override
+    @Transactional
 	public DiscountDto create(DiscountDto discount) {
 		Discount entity = this.discountMapper.discountDtoToDiscount(discount);
         Discount saved = this.discountRepository.save(entity);
         return this.discountMapper.discountToDiscountDto(saved);
 	}
+
+    @Override
+    @Transactional
+    public void delete(Date date, Float amount) {
+        DiscountId id = new DiscountId();
+        id.setAmountPrice(amount);
+        id.setValidityDate(date);
+        this.discountRepository.deleteById(id);
+    }
     
 }
