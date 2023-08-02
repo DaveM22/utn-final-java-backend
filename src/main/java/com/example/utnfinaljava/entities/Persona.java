@@ -24,7 +24,9 @@ public class Persona {
     private String phoneNumber;
     @Column(name = "direccion_email")
     private String email;
+    @Column(name = "cod_postal")
+    private Long postalCode;
     @OneToOne
-    @JoinColumn(name = "cod_postal", referencedColumnName = "cod_postal", insertable = true, updatable = true)
+    @JoinColumn(name = "cod_postal", referencedColumnName = "cod_postal", insertable = false, updatable = false)
     private Location location;
 }

@@ -12,7 +12,9 @@ import com.example.utnfinaljava.entities.Persona;
 import com.example.utnfinaljava.interfaces.CustomerCompanyService;
 import com.example.utnfinaljava.repositories.CustomerCompanyRepository;
 import com.example.utnfinaljava.repositories.CustomerRepository;
+import com.example.utnfinaljava.repositories.LocationRepository;
 import com.example.utnfinaljava.repositories.PersonaRepository;
+import com.example.utnfinaljava.util.exceptions.LocationNotExistException;
 
 import lombok.AllArgsConstructor;
 
@@ -28,6 +30,8 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
 
     private final CustomerCompanyRepository customerCompanyRepository;
 
+    private final LocationRepository locationRepository;
+
 
     @Override
     public List<CustomerCompanyDto> getAll() {
@@ -38,7 +42,12 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
 
 
     @Override
-    public CustomerCompanyDto create(CustomerCompanyDto customer) {
+    public CustomerCompanyDto create(CustomerCompanyDto customer) throws LocationNotExistException {
+
+        if(!locationRepository.existsById(customer.getPostalCode())){
+            throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
+        }
+
         Persona cus = customerCompanyMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerCompanyMapper.customerCompanyDtoToCustomer(customer);
         CustomerCompany particular = customerCompanyMapper.customerCompanyDtoToCustomerCompany(customer);
@@ -53,7 +62,11 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
 
 
     @Override
-    public CustomerCompanyDto edit(CustomerCompanyDto customer) {
+    public CustomerCompanyDto edit(CustomerCompanyDto customer) throws LocationNotExistException {
+
+        if(!locationRepository.existsById(customer.getPostalCode())){
+            throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
+        }
         Persona cus = customerCompanyMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerCompanyMapper.customerCompanyDtoToCustomer(customer);
         CustomerCompany particular = customerCompanyMapper.customerCompanyDtoToCustomerCompany(customer);

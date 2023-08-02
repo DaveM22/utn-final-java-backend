@@ -12,7 +12,9 @@ import com.example.utnfinaljava.entities.Persona;
 import com.example.utnfinaljava.interfaces.CustomerParticularService;
 import com.example.utnfinaljava.repositories.CustomerParticularRepository;
 import com.example.utnfinaljava.repositories.CustomerRepository;
+import com.example.utnfinaljava.repositories.LocationRepository;
 import com.example.utnfinaljava.repositories.PersonaRepository;
+import com.example.utnfinaljava.util.exceptions.LocationNotExistException;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -30,6 +32,8 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
 
     private final CustomerParticularRepository customerParticularRepository;
 
+    private final LocationRepository locationRepository;
+
 
     @Override
     public List<CustomerParticularDto> getAll() {
@@ -40,7 +44,10 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
 
     @Override
     @Transactional
-    public CustomerParticularDto create(CustomerParticularDto customer) {
+    public CustomerParticularDto create(CustomerParticularDto customer) throws LocationNotExistException {
+        if(!locationRepository.existsById(customer.getPostalCode())){
+            throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
+        }
         Persona cus = customerParticularMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerParticularMapper.customerParticularDtoToCustomer(customer);
         CustomerParticular particular = customerParticularMapper.customerParticularDtoToCustomerParticular(customer);
@@ -63,7 +70,10 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
 
     @Override
     @Transactional
-    public CustomerParticularDto edit(CustomerParticularDto customer) {
+    public CustomerParticularDto edit(CustomerParticularDto customer) throws LocationNotExistException {
+        if(!locationRepository.existsById(customer.getPostalCode())){
+            throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
+        }
         Persona cus = customerParticularMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerParticularMapper.customerParticularDtoToCustomer(customer);
         CustomerParticular particular = customerParticularMapper.customerParticularDtoToCustomerParticular(customer);
