@@ -31,9 +31,7 @@ public class WebSecurityConfig {
             .disable()
              .authorizeHttpRequests()
             .requestMatchers("/api/**")
-            .permitAll()
-            /*  
-            .authenticated() */
+            .authenticated()
             .requestMatchers("/auth/**", "/**")
             .permitAll()
             .anyRequest()
