@@ -10,6 +10,7 @@ import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.AmountIsZeroOrNullException;
 import com.example.utnfinaljava.util.exceptions.LocationNotExistException;
 import com.example.utnfinaljava.util.exceptions.NotExistException;
+import com.example.utnfinaljava.util.exceptions.PersistenceException;
 import com.example.utnfinaljava.util.exceptions.PriceIsZeroOrNullException;
 import com.example.utnfinaljava.util.exceptions.StockIsNegativeException;
 
@@ -59,6 +60,13 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(PriceIsZeroOrNullException.class)
     public ResponseEntity<ResponseRequest> handlePriceIsZeroException(PriceIsZeroOrNullException ex) {
+        ResponseRequest response = new ResponseRequest();
+        response.setErrorMessage(ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(PersistenceException.class)
+    public ResponseEntity<ResponseRequest> handlePersistenceException(PersistenceException ex) {
         ResponseRequest response = new ResponseRequest();
         response.setErrorMessage(ex.getMessage());
         return ResponseEntity.badRequest().body(response);
