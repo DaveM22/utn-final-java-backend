@@ -17,7 +17,7 @@ public interface SupplierMapper {
     @Mapping(source = "persona.phoneNumber", target = "phoneNumber")
     @Mapping(source = "persona.email", target = "email")
     @Mapping(source = "persona.direction", target = "direction")
-    @Mapping(source = "persona.location.postalCode", target = "postalCode")
+    @Mapping(source = "persona.postalCode", target = "postalCode")
     SupplierDto supplierToSupplierDto(Supplier supplier);
 
     @Mapping(source = "phoneNumber", target = "phoneNumber")

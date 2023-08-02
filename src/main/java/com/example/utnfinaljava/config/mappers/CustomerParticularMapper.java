@@ -18,7 +18,7 @@ public interface CustomerParticularMapper {
     @Mapping(source = "customer.persona.phoneNumber", target = "phoneNumber")
     @Mapping(source = "customer.persona.email", target = "email")
     @Mapping(source = "customer.persona.direction", target = "direction")
-    @Mapping(source = "customer.persona.location.postalCode", target = "postalCode")
+    @Mapping(source = "customer.persona.postalCode", target = "postalCode")
     CustomerParticularDto customerParticularToCustomerParticularDto(CustomerParticular particular);
 
 

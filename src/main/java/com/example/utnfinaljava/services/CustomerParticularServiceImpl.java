@@ -56,6 +56,7 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
         Customer custSaved = customerRepository.save(cust);
         particular.setCustomer(custSaved);
         customerParticularRepository.save(particular);
+        customer.setPostalCode(customer.getPostalCode());
         customer.setId(personaSaved.getId());
         return customer;
     }
@@ -82,6 +83,7 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
         Customer custSaved = customerRepository.save(cust);
         particular.setCustomer(custSaved);
         customerParticularRepository.save(particular);
+        customer.setPostalCode(customer.getPostalCode());
         customer.setId(personaSaved.getId());
         return customer;
     }

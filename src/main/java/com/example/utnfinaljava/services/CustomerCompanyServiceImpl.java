@@ -56,6 +56,7 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
         Customer custSaved = customerRepository.save(cust);
         particular.setCustomer(custSaved);
         customerCompanyRepository.save(particular);
+        customer.setPostalCode(customer.getPostalCode());
         customer.setId(personaSaved.getId());
         return customer;
     }
@@ -75,6 +76,7 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
         Customer custSaved = customerRepository.save(cust);
         particular.setCustomer(custSaved);
         customerCompanyRepository.save(particular);
+        customer.setPostalCode(customer.getPostalCode());
         customer.setId(personaSaved.getId());
         return customer;
     }

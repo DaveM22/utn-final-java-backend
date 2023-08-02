@@ -45,6 +45,8 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier entity = supplierMapper.supplierDtoToSupplier(supplier);
         entity.setPersona(personaSaved);
         Supplier saved = supplierRepository.save(entity);
+        supplier.setId(saved.getId());
+        supplier.setPostalCode(personaSaved.getPostalCode());
         return supplierMapper.supplierToSupplierDto(saved);
     }
 
@@ -59,6 +61,8 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier entity = supplierMapper.supplierDtoToSupplier(supplier);
         entity.setPersona(personaSaved);
         Supplier saved = supplierRepository.save(entity);
+        supplier.setId(saved.getId());
+        supplier.setPostalCode(personaSaved.getPostalCode());
         return supplierMapper.supplierToSupplierDto(saved);
     }
 

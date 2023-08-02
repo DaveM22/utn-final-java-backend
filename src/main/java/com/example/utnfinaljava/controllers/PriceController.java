@@ -1,8 +1,13 @@
 package com.example.utnfinaljava.controllers;
 
+
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,9 +39,17 @@ public class PriceController {
     @PostMapping("/prices")
     public ResponseEntity<ResponseRequest> postPrice(@RequestBody PriceDto price){
         ResponseRequest response = new ResponseRequest();
-        PriceDto dto = priceService.SetPrice(price);
+        PriceDto dto = priceService.setPrice(price);
         response.setMessage("Se ha establecido un nuevo precio para el producto de manera existosa");
         response.setPayload(dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/prices/{idPersona}/{idProducto}/{fecha}")
+    public ResponseEntity<ResponseRequest> deletePrice(@PathVariable("idPersona") Long idPersona, @PathVariable("idProducto") Long idProducto, @PathVariable("fecha") @DateTimeFormat(pattern= "yyyy-MM-dd") Date fecha){
+        ResponseRequest response = new ResponseRequest();
+        priceService.deletePrice(idPersona, idProducto, fecha);
+        response.setMessage("Se ha eliminado el precio de manera existosa");
         return ResponseEntity.ok(response);
     }
 }

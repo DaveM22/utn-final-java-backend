@@ -1,6 +1,7 @@
 package com.example.utnfinaljava.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.example.utnfinaljava.entities.Price;
 import com.example.utnfinaljava.entities.claves_compuestas.PriceId;
 import com.example.utnfinaljava.interfaces.PriceService;
 import com.example.utnfinaljava.repositories.PriceRepository;
+import com.example.utnfinaljava.util.exceptions.PriceIsZeroOrNullException;
 
 import lombok.AllArgsConstructor;
 
@@ -44,10 +46,30 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public PriceDto SetPrice(PriceDto dto) {
+    public PriceDto setPrice(PriceDto dto) {
+        PriceId id = new PriceId();
+        id.setPersonaId(dto.getPersonaId());
+        id.setProductId(dto.getProductId());
+        id.setDateFrom(dto.getDateFrom());
+        if(priceRepository.existsById(id)){
+            throw new PriceIsZeroOrNullException("Ya existe un precio asignado para la fecha ingresada");
+        }
+        if(dto.getPrice().equals(null) || dto.getPrice() <= 0){
+            throw new PriceIsZeroOrNullException("No se puede asignar un precio con un valor igual o menor a cero");
+        }
+
         Price entity = priceMapper.priceDtoToPrice(dto);
         Price saved = priceRepository.save(entity);
         return priceMapper.priceToPriceDto(saved);
+    }
+
+    @Override
+    public void deletePrice(Long idPersona, Long idPrice, Date date) {
+        PriceId priceId = new PriceId();
+        priceId.setDateFrom(date);
+        priceId.setPersonaId(idPersona);
+        priceId.setProductId(idPrice);
+        this.priceRepository.deleteById(priceId);
     }
 
 }
