@@ -11,6 +11,7 @@ import com.example.utnfinaljava.entities.Price;
 import com.example.utnfinaljava.entities.claves_compuestas.PriceId;
 import com.example.utnfinaljava.interfaces.PriceService;
 import com.example.utnfinaljava.repositories.PriceRepository;
+import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.PriceIsZeroOrNullException;
 
 import lombok.AllArgsConstructor;
@@ -52,7 +53,7 @@ public class PriceServiceImpl implements PriceService {
         id.setProductId(dto.getProductId());
         id.setDateFrom(dto.getDateFrom());
         if(priceRepository.existsById(id)){
-            throw new PriceIsZeroOrNullException("Ya existe un precio asignado para la fecha ingresada");
+            throw new AlreadyExistException("Ya existe un precio asignado para la fecha ingresada");
         }
         if(dto.getPrice().equals(null) || dto.getPrice() <= 0){
             throw new PriceIsZeroOrNullException("No se puede asignar un precio con un valor igual o menor a cero");

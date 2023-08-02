@@ -19,6 +19,8 @@ public class OrderDto {
     private Date Date;
     @Positive(message = "El campo persona es obligatorio")
     private Long personaId;
+    @NotNull(message = "El campo descuento es obligatorio")
+    private Float discount;
     @NotEmpty(message = "No se han ingresado lineas de detalles a la orden")
     private List<OrderDetailDto> details;
 }

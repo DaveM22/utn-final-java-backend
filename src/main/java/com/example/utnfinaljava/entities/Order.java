@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,15 +34,17 @@ public class Order {
     @Column(name = "descuento")
     private Float discount;
     
-    @OneToOne()
+    @OneToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable=false, updatable=false)
     public CustomerCompany company;
 
-    @OneToOne()
+    @OneToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable=false, updatable=false)
     public CustomerParticular particular;
 
-    @OneToMany()
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "nro_pedido", referencedColumnName = "nro_pedido")
     private List<OrderDetail> details = new ArrayList<>();
     

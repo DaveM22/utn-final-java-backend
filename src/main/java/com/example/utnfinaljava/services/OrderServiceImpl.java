@@ -73,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
         obj.setOrderNumber(0L);
         obj.setOrderDate(order.getDate());
         obj.setPersonaId(order.getPersonaId());
+        obj.setDiscount(order.getDiscount());
         Order save = orderRepository.save(obj);
         List<OrderDetail> details = new ArrayList<OrderDetail>();
         List<ProductoProveedorId> ids = new ArrayList<ProductoProveedorId>();
@@ -114,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = this.orderRepository.getReferenceById(id);
         OrderReportDto dto = new OrderReportDto();
         dto.setDiscount(order.getDiscount());
-        if(order.getCompany() == null){
+        if(order.getParticular() != null){
             dto.setCustomerName(order.getParticular().getFirstName() + ' ' + order.getParticular().getLastName());
             dto.setDirection(order.getParticular().getCustomer().getPersona().getDirection());
             dto.setEmail(order.getParticular().getCustomer().getPersona().getEmail());

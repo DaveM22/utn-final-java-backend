@@ -14,8 +14,10 @@ import com.example.utnfinaljava.repositories.CustomerCompanyRepository;
 import com.example.utnfinaljava.repositories.CustomerRepository;
 import com.example.utnfinaljava.repositories.LocationRepository;
 import com.example.utnfinaljava.repositories.PersonaRepository;
+import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.LocationNotExistException;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -42,11 +44,17 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
 
 
     @Override
+    @Transactional
     public CustomerCompanyDto create(CustomerCompanyDto customer) throws LocationNotExistException {
 
         if(!locationRepository.existsById(customer.getPostalCode())){
             throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
         }
+        
+        if(!customerCompanyRepository.existsByCuit(customer.getCuit())){
+            throw new AlreadyExistException("Ya existe un cliente con el cuit ingresado");
+        }
+        
 
         Persona cus = customerCompanyMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerCompanyMapper.customerCompanyDtoToCustomer(customer);
@@ -63,10 +71,18 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
 
 
     @Override
+    @Transactional
     public CustomerCompanyDto edit(CustomerCompanyDto customer) throws LocationNotExistException {
 
         if(!locationRepository.existsById(customer.getPostalCode())){
             throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
+        }
+
+        CustomerCompany customerCompany = customerCompanyRepository.getReferenceById(customer.getId());
+        if(customer.getCuit() != customerCompany.getCuit()){
+            if(!customerCompanyRepository.existsByCuit(customer.getCuit())){
+                throw new AlreadyExistException("Ya existe un cliente con el cuit ingresado");
+            }
         }
         Persona cus = customerCompanyMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerCompanyMapper.customerCompanyDtoToCustomer(customer);
@@ -83,6 +99,7 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
 
 
     @Override
+    @Transactional
     public void delete(Long id) {
         this.customerCompanyRepository.deleteById(id);
         this.customerRepository.deleteById(id);

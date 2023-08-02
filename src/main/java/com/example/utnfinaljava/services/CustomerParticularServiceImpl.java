@@ -14,6 +14,7 @@ import com.example.utnfinaljava.repositories.CustomerParticularRepository;
 import com.example.utnfinaljava.repositories.CustomerRepository;
 import com.example.utnfinaljava.repositories.LocationRepository;
 import com.example.utnfinaljava.repositories.PersonaRepository;
+import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.LocationNotExistException;
 
 import jakarta.transaction.Transactional;
@@ -48,6 +49,10 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
         if(!locationRepository.existsById(customer.getPostalCode())){
             throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
         }
+
+        if(!customerParticularRepository.existsByDni(customer.getDni())){
+            throw new AlreadyExistException("Ya existe un cliente con el dni ingresado");
+        }
         Persona cus = customerParticularMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerParticularMapper.customerParticularDtoToCustomer(customer);
         CustomerParticular particular = customerParticularMapper.customerParticularDtoToCustomerParticular(customer);
@@ -75,6 +80,13 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
         if(!locationRepository.existsById(customer.getPostalCode())){
             throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
         }
+        CustomerParticular customerParticular = this.customerParticularRepository.getReferenceById(customer.getId());
+        if(customer.getDni() != customerParticular.getDni()){
+            if(!customerParticularRepository.existsByDni(customer.getDni())){
+                throw new AlreadyExistException("Ya existe un cliente con el dni ingresado");
+            }
+        }
+
         Persona cus = customerParticularMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerParticularMapper.customerParticularDtoToCustomer(customer);
         CustomerParticular particular = customerParticularMapper.customerParticularDtoToCustomerParticular(customer);
