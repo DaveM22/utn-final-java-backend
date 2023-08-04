@@ -9,6 +9,8 @@ import com.example.utnfinaljava.dtos.AuthenticationRequestDto;
 import com.example.utnfinaljava.dtos.AuthenticationResponseDto;
 import com.example.utnfinaljava.dtos.RegisterRequest;
 import com.example.utnfinaljava.services.AuthenticationService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,7 +27,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> aunthenticateRequest(@RequestBody AuthenticationRequestDto request ){
+    public ResponseEntity<?> aunthenticateRequest(@Valid @RequestBody AuthenticationRequestDto request ){
 
             return ResponseEntity.ok(service.authenticate(request));
 

@@ -33,54 +33,34 @@ public class ProvinceController {
     private ProvinceService provinceService;
 
     @GetMapping("/provinces")
-    public ResponseEntity<ResponseRequest> getProvincies(){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<List<ProvinceDto>>> getAll(){
+        ResponseRequest<List<ProvinceDto>>response = new ResponseRequest<List<ProvinceDto>>();
         response.setPayload(provinceService.getProvincies());
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/provinces")
-    public ResponseEntity<ResponseRequest> postProvince(@Valid @RequestBody ProvinceDto province, BindingResult result) throws AlreadyExistException {
-        ResponseRequest response = new ResponseRequest();
-        if(result.hasErrors()){
-            response.setErrorMessage("Error al crear la provincia");
-            List<String> errores = result.getAllErrors().stream()
-            .map(DefaultMessageSourceResolvable::getDefaultMessage)
-            .collect(Collectors.toList());
-            response.setPayload(errores);
-            return ResponseEntity.badRequest().body(response);
-        }
-        else{
-            ProvinceDto created = provinceService.create(province);
-            response.setMessage("Se ha creado la provincia de manera exitosa");
-            response.setPayload(created);
-            return ResponseEntity.ok(response);
-        }
+    public ResponseEntity<ResponseRequest<ProvinceDto>> post(@Valid @RequestBody ProvinceDto province){
+        ResponseRequest<ProvinceDto> response = new ResponseRequest<ProvinceDto>();
+        ProvinceDto created = provinceService.create(province);
+        response.setMessage("Se ha creado la provincia de manera exitosa");
+        response.setPayload(created);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/provinces")
-    public ResponseEntity<ResponseRequest> putProvince(@Valid @RequestBody ProvinceDto province, BindingResult result) throws NotExistException {
-        ResponseRequest response = new ResponseRequest();
-        if(result.hasErrors()){
-            response.setErrorMessage("Se detectaron los siguientes errores:");
-            List<String> errores = result.getAllErrors().stream()
-            .map(DefaultMessageSourceResolvable::getDefaultMessage)
-            .collect(Collectors.toList());
-            response.setPayload(errores);
-            return ResponseEntity.badRequest().body(response);
-        }
-        else{
-            ProvinceDto created = provinceService.edit(province);
-            response.setMessage("Se han guardado los cambios de la provincia de manera exitosa");
-            response.setPayload(created);
-            return ResponseEntity.ok(response);
-        }
+    public ResponseEntity<ResponseRequest<ProvinceDto>> put(@Valid @RequestBody ProvinceDto province) {
+        ResponseRequest<ProvinceDto> response = new ResponseRequest<ProvinceDto>();
+        ProvinceDto created = provinceService.edit(province);
+        response.setMessage("Se han guardado los cambios de la provincia de manera exitosa");
+        response.setPayload(created);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/provinces/{id}")
-    public ResponseEntity<ResponseRequest> deleteCompany(@PathVariable("id") Long id) throws NotExistException{
-        ResponseRequest response = new ResponseRequest();
-        provinceService.delete(id);;
+    public ResponseEntity<ResponseRequest<?>> delete(@PathVariable("id") Long id) throws NotExistException{
+        ResponseRequest<?> response = new ResponseRequest<Object>();
+        provinceService.delete(id);
         response.setMessage("Se ha borrado la provincia de manera exitosa");
         return ResponseEntity.ok(response);
     }

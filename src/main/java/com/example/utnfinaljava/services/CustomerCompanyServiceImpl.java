@@ -51,7 +51,7 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
             throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
         }
         
-        if(!customerCompanyRepository.existsByCuit(customer.getCuit())){
+        if(customerCompanyRepository.existsByCuit(customer.getCuit())){
             throw new AlreadyExistException("Ya existe un cliente con el cuit ingresado");
         }
         

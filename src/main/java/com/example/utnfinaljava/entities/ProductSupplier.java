@@ -47,7 +47,7 @@ public class ProductSupplier {
     private List<Price> prices = new ArrayList<>();
 
 
-    public long getValidityPrice(){
+    public float getValidityPrice(){
         LocalDate currentDate = LocalDate.now();
         Price vigentPrice = null;
         List<Price> pricesReversed = this.prices;

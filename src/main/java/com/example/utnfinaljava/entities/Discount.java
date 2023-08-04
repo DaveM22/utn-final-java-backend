@@ -15,7 +15,7 @@ public class Discount implements Comparable<Discount> {
     @EmbeddedId
     private DiscountId id;
     @Column(name = "porc_descuento")
-    private float discount;
+    private Float discount;
     
     @Override
     public int compareTo(Discount o) {

@@ -16,6 +16,7 @@ import com.example.utnfinaljava.dtos.SupplierDto;
 import com.example.utnfinaljava.interfaces.SupplierService;
 import com.example.utnfinaljava.responses.ResponseRequest;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -25,16 +26,16 @@ public class SupplierController {
     private final SupplierService supplierService;
 
     @GetMapping("/supplier")
-    public ResponseEntity<ResponseRequest> get(){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<List<SupplierDto>>> get(){
+        ResponseRequest<List<SupplierDto>> response = new ResponseRequest<List<SupplierDto>>();
         List<SupplierDto> dtos = supplierService.getSupplier();
         response.setPayload(dtos);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/supplier")
-    public ResponseEntity<ResponseRequest> post(@RequestBody SupplierDto supplier){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<SupplierDto>> post(@Valid @RequestBody SupplierDto supplier){
+        ResponseRequest<SupplierDto> response = new ResponseRequest<SupplierDto>();
         SupplierDto dto = supplierService.create(supplier);
         response.setPayload(dto);
         response.setMessage("Se ha creado el proveedor de manera exitosa");
@@ -42,8 +43,8 @@ public class SupplierController {
     }
 
     @PutMapping("/supplier")
-    public ResponseEntity<ResponseRequest> put(@RequestBody SupplierDto persona){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<SupplierDto>> put(@Valid @RequestBody SupplierDto persona){
+        ResponseRequest<SupplierDto> response = new ResponseRequest<SupplierDto>();
         SupplierDto dto = supplierService.edit(persona);
         response.setPayload(dto);
         response.setMessage("Se han guardado los cambios del proveedor de manera exitosa");
@@ -51,8 +52,8 @@ public class SupplierController {
     }
 
     @DeleteMapping("/supplier/{id}")
-    public ResponseEntity<ResponseRequest> delete(@PathVariable("id") Long id){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<?>> delete(@PathVariable("id") Long id){
+        ResponseRequest<?> response = new ResponseRequest<Object>();
         supplierService.delete(id);
         response.setMessage("Se ha borrado el proveedor de manera exitosa");
         return ResponseEntity.ok(response);

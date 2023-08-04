@@ -26,25 +26,25 @@ public class OrderController {
     private final OrderService orderRepository;
 
     @GetMapping("/orders")
-    public ResponseEntity<ResponseRequest> getOrders(){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<List<OrderViewDto>>> getAll(){
+        ResponseRequest<List<OrderViewDto>> response = new ResponseRequest<List<OrderViewDto>>();
         List<OrderViewDto> dtos = orderRepository.getOrders();
         response.setPayload(dtos);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<ResponseRequest> postOrder(@Valid @RequestBody OrderDto order, BindingResult result){
+    public ResponseEntity<ResponseRequest<OrderDto>> post(@Valid @RequestBody OrderDto order, BindingResult result){
     
-        ResponseRequest response = new ResponseRequest();
+        ResponseRequest<OrderDto> response = new ResponseRequest<OrderDto>();
         orderRepository.createOrder(order);
         response.setMessage("Se ha registrado la compra de manera exitosa");
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/orders/{id}")
-    public ResponseEntity<ResponseRequest> getOrderById(@PathVariable("id") Long orderId){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<OrderReportDto>> getById(@PathVariable("id") Long orderId){
+        ResponseRequest<OrderReportDto> response = new ResponseRequest<OrderReportDto>();
         OrderReportDto dto = orderRepository.getOrderById(orderId);
         response.setPayload(dto);
         response.setMessage("Se ha registrado la compra de manera exitosa");

@@ -1,7 +1,13 @@
 package com.example.utnfinaljava.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,44 +22,66 @@ import com.example.utnfinaljava.util.exceptions.StockIsNegativeException;
 
 @RestControllerAdvice
 public class CustomExceptionHandler {
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+		Map<String, String> errors = new HashMap<>();
+		ex.getBindingResult().getAllErrors().forEach((error) ->{
+			
+			String fieldName = ((FieldError) error).getField();
+			String message = error.getDefaultMessage();
+			errors.put(fieldName, message);
+		});
+		return new ResponseEntity<Object>(errors, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ResponseRequest<?>> handleRunTimeException(RuntimeException ex) {
+        ResponseRequest<?> response = new ResponseRequest<Object>();
+        response.setErrorMessage("Hubo un error en el servidor, por favor contactese con soporte");
+        return ResponseEntity.internalServerError().body(response);
+    }
+    
+    
     @ExceptionHandler(AlreadyExistException.class)
-    public ResponseEntity<ResponseRequest> handleAlreadyException(AlreadyExistException ex) {
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<?>> handleAlreadyException(AlreadyExistException ex) {
+        ResponseRequest<?> response = new ResponseRequest<Object>();
         response.setErrorMessage(ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(NotExistException.class)
-    public ResponseEntity<ResponseRequest> handleNoExistException(NotExistException ex) {
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<?>> handleNoExistException(NotExistException ex) {
+         ResponseRequest<?> response = new ResponseRequest<Object>();
         response.setErrorMessage(ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(AmountIsZeroOrNullException.class)
-    public ResponseEntity<ResponseRequest> handleNoExistException(AmountIsZeroOrNullException ex) {
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<?>> handleNoExistException(AmountIsZeroOrNullException ex) {
+         ResponseRequest<?> response = new ResponseRequest<Object>();
         response.setErrorMessage(ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(StockIsNegativeException.class)
-    public ResponseEntity<ResponseRequest> handleNoExistException(StockIsNegativeException ex) {
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<?>> handleNoExistException(StockIsNegativeException ex) {
+        ResponseRequest<?> response = new ResponseRequest<Object>();
         response.setErrorMessage(ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ResponseRequest> handleNoExistException(BadCredentialsException ex) {
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<?>> handleNoExistException(BadCredentialsException ex) {
+        ResponseRequest<?> response = new ResponseRequest<Object>();
         response.setErrorMessage("El usuario y/o contraseña son incorrectos");
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(LocationNotExistException.class)
-    public ResponseEntity<ResponseRequest> handleNoExistException(LocationNotExistException ex) {
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<?>> handleNoExistException(LocationNotExistException ex) {
+         ResponseRequest<?> response = new ResponseRequest<Object>();
         response.setErrorMessage(ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }

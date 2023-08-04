@@ -6,4 +6,5 @@ import com.example.utnfinaljava.entities.Location;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
+    boolean existsByProvinceProvinceCode(Long provinceCode);
 }

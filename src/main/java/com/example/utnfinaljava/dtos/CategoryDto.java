@@ -1,12 +1,14 @@
 package com.example.utnfinaljava.dtos;
 
-import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class CategoryDto {
-    @NotNull(message = "El campo Id es obligatorio")
     private Long categoryId;
-    @NotNull(message = "El campo Nombre es obligatorio")
+    @NotBlank(message = "El campo Nombre no puede estar vacio")
+    @Length(max = 40, message = "El campo Nombre solo admite hasta 40 caracteres")
     private String name;
 }

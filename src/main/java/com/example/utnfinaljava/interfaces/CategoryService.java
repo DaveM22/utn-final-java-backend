@@ -6,11 +6,11 @@ import com.example.utnfinaljava.dtos.CategoryDto;
 
 
 public interface CategoryService {
-    public List<CategoryDto> getCategories();
+    public List<CategoryDto> getAll();
 
-    public CategoryDto createCategory(CategoryDto category);
+    public CategoryDto create(CategoryDto category);
 
-    public CategoryDto editCategoriaDto(CategoryDto category);
+    public CategoryDto edit(CategoryDto category);
 
-    public void deleteCategory(Long id);
+    public void delete(Long id);
 }

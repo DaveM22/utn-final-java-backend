@@ -30,24 +30,24 @@ public class DiscountController {
 
 
     @GetMapping("/discount")
-    public ResponseEntity<ResponseRequest> getDiscounts(){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<List<DiscountDto>>> getDiscountsToday(){
+        ResponseRequest<List<DiscountDto>> response = new ResponseRequest<List<DiscountDto>>();
         List<DiscountDto> dto = discountService.getTodayDiscount();
         response.setPayload(dto);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/discount/all")
-    public ResponseEntity<ResponseRequest> getAll(){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<List<DiscountDto>>> getAll(){
+        ResponseRequest<List<DiscountDto>> response = new ResponseRequest<List<DiscountDto>>();
         List<DiscountDto> dtos = discountService.getTodayDiscount();
         response.setPayload(dtos);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/discount")
-    public ResponseEntity<ResponseRequest> post(@Valid @RequestBody DiscountDto discountDto,  BindingResult result){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<DiscountDto>> post(@Valid @RequestBody DiscountDto discountDto,  BindingResult result){
+        ResponseRequest<DiscountDto> response = new ResponseRequest<DiscountDto>();
         DiscountDto dto = discountService.create(discountDto);
         response.setPayload(dto);
         response.setMessage("Se ha agregado el descuento de manera exitosa");
@@ -55,9 +55,9 @@ public class DiscountController {
     }
 
     @DeleteMapping("/discount/{fecha}/{amount}")
-    public ResponseEntity<ResponseRequest> delete(@PathVariable("amount") Float amount, @DateTimeFormat(pattern= "yyyy-MM-dd") Date fecha){
-        ResponseRequest response = new ResponseRequest();
-        discountService.delete(fecha, amount);
+    public ResponseEntity<ResponseRequest<?>> delete(@PathVariable("amount") Float amount, @DateTimeFormat(pattern= "yyyy-MM-dd") Date date){
+        ResponseRequest<?> response = new ResponseRequest<Object>();
+        discountService.delete(date, amount);
         response.setMessage("Se ha borrado el descuento de manera existosa");
         return ResponseEntity.ok(response);
     }

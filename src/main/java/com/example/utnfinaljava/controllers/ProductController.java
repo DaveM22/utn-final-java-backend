@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.utnfinaljava.dtos.CustomerCompanyDto;
 import com.example.utnfinaljava.dtos.ProductDto;
 import com.example.utnfinaljava.interfaces.ProductService;
 import com.example.utnfinaljava.responses.ResponseRequest;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.NotExistException;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
@@ -27,42 +31,36 @@ public class ProductController {
     private ProductService productoService;
 
     @GetMapping("/products")
-    public ResponseRequest getProducts(){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<List<ProductDto>>> getAll(){
+        ResponseRequest<List<ProductDto>>response = new ResponseRequest<List<ProductDto>>();
         List<ProductDto> productos = productoService.getProducts();
         response.setPayload(productos);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/products")
-    public ResponseRequest postProduct(@RequestBody ProductDto producto, BindingResult result ) throws AlreadyExistException{
+    public ResponseEntity<ResponseRequest<ProductDto>>  post(@Valid @RequestBody ProductDto producto ) {
         ProductDto nuevoProducto = this.productoService.save(producto);
-        ResponseRequest response = new ResponseRequest();
+        ResponseRequest<ProductDto> response = new ResponseRequest<ProductDto>();
         response.setMessage("Se ha agregado un nuevo producto de manera correcta");
         response.setPayload(nuevoProducto);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/products")
-    public ResponseRequest putProduct(@RequestBody ProductDto producto, BindingResult result ) throws NotExistException {
+    public ResponseEntity<ResponseRequest<ProductDto>> put(@Valid @RequestBody ProductDto producto  )  {
         ProductDto nuevoProducto = this.productoService.edit(producto);
-        ResponseRequest response = new ResponseRequest();
+         ResponseRequest<ProductDto> response = new  ResponseRequest<ProductDto>();
         response.setMessage("Se han guardado los cambios del producto de manera exitosa");
         response.setPayload(nuevoProducto);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<ResponseRequest> deleteProduct(@PathVariable("id") Long id){
-        ResponseRequest response = new ResponseRequest();
-        try{
-            productoService.delete(id);
-            response.setMessage("Se ha borrado el producto de manera exitosa");
-            return ResponseEntity.ok(response);
-        }
-        catch(Exception e){
-            response.setErrorMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
-        }
+    public ResponseEntity<ResponseRequest<?>> delete(@PathVariable("id") Long id){
+        ResponseRequest<?> response = new ResponseRequest<Object>();
+        productoService.delete(id);
+        response.setMessage("Se ha borrado el producto de manera exitosa");
+        return ResponseEntity.ok(response);
     }
 }

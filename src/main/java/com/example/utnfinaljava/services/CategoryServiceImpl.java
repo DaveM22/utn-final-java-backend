@@ -22,14 +22,14 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public List<CategoryDto> getCategories() {
+    public List<CategoryDto> getAll() {
         List<Category> entities = categoryRepository.findAll();
         return categoryMapper.categoryListToCategoryListDto(entities);
     }
 
     @Override
     @Transactional
-    public CategoryDto createCategory(CategoryDto category) {
+    public CategoryDto create(CategoryDto category) {
         Category cat = categoryMapper.categoryDtoToCategory(category);
         Category saved = categoryRepository.save(cat);
         CategoryDto dto = categoryMapper.categoryToCategoryDto(saved);
@@ -38,13 +38,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public void deleteCategory(Long id) {
+    public void delete(Long id) {
         categoryRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public CategoryDto editCategoriaDto(CategoryDto category) {
+    public CategoryDto edit(CategoryDto category) {
         Category cat = categoryMapper.categoryDtoToCategory(category);
         Category saved = categoryRepository.save(cat);
         category = categoryMapper.categoryToCategoryDto(saved);

@@ -17,7 +17,7 @@ public class Price implements Comparable<Price> {
     private PriceId id;
 
     @Column(name="precio")
-    private Long price;
+    private Float price;
 
     @Override
     public int compareTo(Price arg0) {

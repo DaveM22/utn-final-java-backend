@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,35 +32,35 @@ public class CategoryController {
 
 
     @GetMapping("/categories")
-    public ResponseRequest getCategories(){
-        ResponseRequest response = new ResponseRequest();
-        List<CategoryDto> dtos = categoriaService.getCategories();
+    public ResponseRequest<List<CategoryDto>> getAll(){
+        ResponseRequest<List<CategoryDto>> response = new ResponseRequest<List<CategoryDto>>();
+        List<CategoryDto> dtos = categoriaService.getAll();
         response.setPayload(dtos);
         return response;
     }
 
     @PostMapping("/categories")
-    public ResponseEntity<ResponseRequest> postCategory(@Valid @RequestBody CategoryDto category, BindingResult result  ){
-        ResponseRequest response = new ResponseRequest();
-        CategoryDto dto = categoriaService.createCategory(category);
+    public ResponseEntity<ResponseRequest<CategoryDto>> post(@Valid @RequestBody CategoryDto category){
+        ResponseRequest<CategoryDto> response = new ResponseRequest<CategoryDto>();
+        CategoryDto dto = categoriaService.create(category);
         response.setMessage("Se ha creado la categoría de manera exitosa");
         response.setPayload(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/categories")
-    public ResponseEntity<ResponseRequest> putCategory(@Valid @RequestBody CategoryDto category, BindingResult result  ){
-        ResponseRequest response = new ResponseRequest();
-        CategoryDto dto =  categoriaService.editCategoriaDto(category);
+    public ResponseEntity<ResponseRequest<CategoryDto>> put(@Valid @RequestBody CategoryDto category  ){
+        ResponseRequest<CategoryDto> response = new ResponseRequest<CategoryDto>();
+        CategoryDto dto =  categoriaService.edit(category);
         response.setMessage("Se han guardado los cambios de la categoría de manera exitosa");
         response.setPayload(dto);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/categories/{id}")
-    public ResponseEntity<ResponseRequest> deleteCategory(@PathVariable("id") Long id){
-        ResponseRequest response = new ResponseRequest();
-        categoriaService.deleteCategory(id);
+    public ResponseEntity<ResponseRequest<Object>> delete(@PathVariable("id") Long id){
+        ResponseRequest<Object> response = new ResponseRequest<Object>();
+        categoriaService.delete(id);
         response.setMessage("Se ha borrado la categoría de manera exitosa");
         return ResponseEntity.ok(response);
     }   

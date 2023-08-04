@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 @Data
 @AllArgsConstructor
-public class ResponseRequest {
+public class ResponseRequest<T> {
 
     public ResponseRequest(){
         
@@ -12,5 +12,5 @@ public class ResponseRequest {
 
     private String errorMessage;
     private String message;
-    private Object Payload;    
+    private T Payload;    
 }

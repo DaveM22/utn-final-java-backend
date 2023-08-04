@@ -50,7 +50,7 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
             throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
         }
 
-        if(!customerParticularRepository.existsByDni(customer.getDni())){
+        if(customerParticularRepository.existsByDni(customer.getDni())){
             throw new AlreadyExistException("Ya existe un cliente con el dni ingresado");
         }
         Persona cus = customerParticularMapper.customerParticularDtoToPersona(customer);

@@ -5,11 +5,15 @@ import org.springframework.stereotype.Service;
 
 import com.example.utnfinaljava.config.mappers.ProductMapper;
 import com.example.utnfinaljava.dtos.ProductDto;
+import com.example.utnfinaljava.entities.Price;
 import com.example.utnfinaljava.entities.Product;
+import com.example.utnfinaljava.entities.ProductSupplier;
 import com.example.utnfinaljava.interfaces.ProductService;
 import com.example.utnfinaljava.repositories.OrderDetailRepository;
 import com.example.utnfinaljava.repositories.OrderRepository;
+import com.example.utnfinaljava.repositories.PriceRepository;
 import com.example.utnfinaljava.repositories.ProductRepository;
+import com.example.utnfinaljava.repositories.ProductSupplierRepository;
 import com.example.utnfinaljava.util.exceptions.NotExistException;
 import com.example.utnfinaljava.util.exceptions.PersistenceException;
 
@@ -21,6 +25,10 @@ import lombok.AllArgsConstructor;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+
+    private final ProductSupplierRepository productSupplierRepository;
+
+    private final PriceRepository priceRepository;
 
     private final ProductMapper productMapper;
 
@@ -64,6 +72,10 @@ public class ProductServiceImpl implements ProductService {
         if(orderDetailRepository.existsByProductId(id)){
             throw new PersistenceException("No se puede borrar un producto que este integrado en un pedido");
         }
+        List<Price> prices = this.priceRepository.findByIdProductId(id);
+        List<ProductSupplier> productSuppliers = this.productSupplierRepository.findByProductId(id);
+        this.priceRepository.deleteAll(prices);
+        this.productSupplierRepository.deleteAll(productSuppliers);
         this.productRepository.deleteById(id);
     }    
 }

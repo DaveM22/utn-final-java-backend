@@ -30,51 +30,35 @@ public class LocationController {
     private LocationServiceImpl locationService;
 
     @GetMapping("/locations")
-    public ResponseEntity<ResponseRequest> getLocation(){
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<List<LocationDto>>> getAll(){
+        ResponseRequest<List<LocationDto>> response = new ResponseRequest<List<LocationDto>>();
         List<LocationDto> dtos = locationService.getLocations();
         response.setPayload(dtos);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/locations")
-    public ResponseEntity<ResponseRequest> postLocation(@Valid @RequestBody LocationDto location, BindingResult result) throws AlreadyExistException, NotExistException {
-        ResponseRequest response = new ResponseRequest();
-        if(result.hasErrors()){
-            response.setErrorMessage("Error al crear la localidad");
-            List<String> errores = ErrorMessages.GetErrorMessages(result);
-            response.setPayload(errores);
-            return ResponseEntity.badRequest().body(response);
-        }
-        else{
-            LocationDto created = locationService.create(location);
+    public ResponseEntity<ResponseRequest<?>> post(@Valid @RequestBody LocationDto location) {
+        ResponseRequest<LocationDto> response = new ResponseRequest<LocationDto>();
+                    LocationDto created = locationService.create(location);
             response.setMessage("Se ha creado la localidad de manera exitosa");
             response.setPayload(created);
             return ResponseEntity.ok(response);
-        }
     }
 
     @PutMapping("/locations")
     @ResponseBody
-    public ResponseEntity<ResponseRequest> putLocation(@Valid @RequestBody LocationDto location,  BindingResult result) throws AlreadyExistException, NotExistException{
-        ResponseRequest response = new ResponseRequest();
-        if(result.hasErrors()){
-            response.setErrorMessage("Error al editar la localidad");
-            List<String> errores = ErrorMessages.GetErrorMessages(result);
-            response.setPayload(errores);
-            return ResponseEntity.badRequest().body(response);
-        }
-        else{
-            LocationDto edited = locationService.edit(location);
-            response.setMessage("Se han guardado los cambios de la localidad de manera exitosa");
-            response.setPayload(edited);
-            return ResponseEntity.ok(response);
-        }
+    public ResponseEntity<ResponseRequest<?>> putLocation(@Valid @RequestBody LocationDto location) throws AlreadyExistException, NotExistException{
+        ResponseRequest<LocationDto> response = new ResponseRequest<LocationDto>();
+        LocationDto edited = locationService.edit(location);
+        response.setMessage("Se han guardado los cambios de la localidad de manera exitosa");
+        response.setPayload(edited);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/locations/{code}")
-    public ResponseEntity<ResponseRequest> deleteLocation(@PathVariable("code") Long code) throws NotExistException{
-        ResponseRequest response = new ResponseRequest();
+    public ResponseEntity<ResponseRequest<?>> delete(@PathVariable("code") Long code) throws NotExistException{
+        ResponseRequest<?> response = new ResponseRequest<Object>();
         locationService.delete(code);
         response.setMessage("Se ha borrado la localidad de manera exitosa");
         return ResponseEntity.ok(response);

@@ -8,21 +8,24 @@ import com.example.utnfinaljava.config.mappers.ProvinceMapper;
 import com.example.utnfinaljava.dtos.ProvinceDto;
 import com.example.utnfinaljava.entities.Province;
 import com.example.utnfinaljava.interfaces.ProvinceService;
+import com.example.utnfinaljava.repositories.LocationRepository;
 import com.example.utnfinaljava.repositories.ProvinceRepository;
 import com.example.utnfinaljava.util.exceptions.AlreadyExistException;
 import com.example.utnfinaljava.util.exceptions.NotExistException;
+import com.example.utnfinaljava.util.exceptions.PersistenceException;
 
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class ProvinceServiceImpl implements ProvinceService {
 
+    private final ProvinceRepository provinciaRepository;
 
-    @Autowired
-    private ProvinceRepository provinciaRepository;
+    private final ProvinceMapper provinceMapper;
 
-    @Autowired
-    private ProvinceMapper provinceMapper;
+    private final LocationRepository locationRepository;
     
     public List<ProvinceDto> getProvincies() 
     {
@@ -60,6 +63,10 @@ public class ProvinceServiceImpl implements ProvinceService {
         boolean notExist = !provinciaRepository.existsById(provinceId);
         if (notExist) {
             throw new NotExistException("La provincia ingresada no existe");
+        }
+        boolean exists = locationRepository.existsByProvinceProvinceCode(provinceId);
+        if(exists){
+            throw new PersistenceException("La provincia pertece a una localidad registrada");
         }
         provinciaRepository.deleteById(provinceId);
     }

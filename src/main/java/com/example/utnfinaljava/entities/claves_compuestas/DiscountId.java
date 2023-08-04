@@ -12,5 +12,5 @@ public class DiscountId {
     @Column(name = "fecha_vigencia")
     private Date validityDate;
     @Column(name = "monto_desde")
-    private float amountPrice;
+    private Float amountPrice;
 }
