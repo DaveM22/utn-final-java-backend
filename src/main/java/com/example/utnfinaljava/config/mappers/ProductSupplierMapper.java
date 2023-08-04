@@ -19,6 +19,7 @@ public interface ProductSupplierMapper {
     @Mapping(source = "supplier.cuit", target = "cuit")
     @Mapping(source = "supplier.businessName", target = "supplierName")
     @Mapping(source = "product.description", target = "productName")
+    @Mapping(target = "validityPrice", expression = "java(productSupplier.getValidityPrice())")
     ProductSupplierDto productSupplierToProductSupplierDto(ProductSupplier productSupplier);
 
     @Mapping(source="personaId", target="id.personaId")

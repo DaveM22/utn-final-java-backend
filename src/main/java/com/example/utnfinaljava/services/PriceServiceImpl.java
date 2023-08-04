@@ -34,7 +34,7 @@ public class PriceServiceImpl implements PriceService {
         List<PriceDto> dtos = new ArrayList<PriceDto>();
 
         for (Price price : precios) {
-            if (price.getId().personaId == personaId && price.getId().productId == productId) {
+            if (price.getId().personaId.equals(personaId) && price.getId().productId.equals(productId)) {
                 PriceDto dto = new PriceDto();
                 dto.setPersonaId(price.getId().getPersonaId());
                 dto.setProductId(price.getId().getProductId());

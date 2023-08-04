@@ -12,5 +12,5 @@ public class ProductSupplierDto {
     private Integer amount;
     private String supplierName;
     private List<PriceDto> prices;
-    private Long validityPrice;
+    private Float validityPrice;
 }

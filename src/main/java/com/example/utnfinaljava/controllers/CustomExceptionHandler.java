@@ -36,12 +36,7 @@ public class CustomExceptionHandler {
     }
 
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ResponseRequest<?>> handleRunTimeException(RuntimeException ex) {
-        ResponseRequest<?> response = new ResponseRequest<Object>();
-        response.setErrorMessage("Hubo un error en el servidor, por favor contactese con soporte");
-        return ResponseEntity.internalServerError().body(response);
-    }
+   
     
     
     @ExceptionHandler(AlreadyExistException.class)

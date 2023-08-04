@@ -34,7 +34,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<ResponseRequest<OrderDto>> post(@Valid @RequestBody OrderDto order, BindingResult result){
+    public ResponseEntity<ResponseRequest<OrderDto>> post(@RequestBody OrderDto order){
     
         ResponseRequest<OrderDto> response = new ResponseRequest<OrderDto>();
         orderRepository.createOrder(order);

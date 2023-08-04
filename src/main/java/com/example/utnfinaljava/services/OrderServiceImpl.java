@@ -97,8 +97,8 @@ public class OrderServiceImpl implements OrderService {
         List<ProductSupplier> productSuppliers = productoRepository.findAllById(ids);
         for (OrderDetailDto dto : order.getDetails()) {
             ProductSupplier produtSup = productSuppliers.stream().findFirst()
-                    .filter(x -> x.getId().getPersonaId() == dto.getPersonaId()
-                            && x.getId().getProductId() == dto.getProductId())
+                    .filter(x -> x.getId().getPersonaId().equals(dto.getPersonaId())
+                            && x.getId().getProductId().equals(dto.getProductId()))
                     .get();
             produtSup.setAmount(produtSup.getAmount() - dto.getAmount());
         }
