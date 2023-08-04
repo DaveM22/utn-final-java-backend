@@ -25,7 +25,7 @@ public class CustomerParticular {
     private String dni;
     @OneToOne
     @MapsId("customerParticular")
-    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
+    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
     private Customer customer;
 
     @PrePersist

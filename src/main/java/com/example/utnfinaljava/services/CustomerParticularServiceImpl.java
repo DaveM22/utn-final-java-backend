@@ -91,9 +91,10 @@ public class CustomerParticularServiceImpl implements CustomerParticularService 
         Customer cust = customerParticularMapper.customerParticularDtoToCustomer(customer);
         CustomerParticular particular = customerParticularMapper.customerParticularDtoToCustomerParticular(customer);
         Persona personaSaved = personaRepository.save(cus);
-        cust.setPersona(personaSaved);
+        cust.setId(personaSaved.getId());
         Customer custSaved = customerRepository.save(cust);
         particular.setCustomer(custSaved);
+        particular.setId(personaSaved.getId());
         customerParticularRepository.save(particular);
         customer.setPostalCode(customer.getPostalCode());
         customer.setId(personaSaved.getId());

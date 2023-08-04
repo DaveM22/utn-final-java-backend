@@ -77,20 +77,16 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
         if(!locationRepository.existsById(customer.getPostalCode())){
             throw new LocationNotExistException("El código postal ingresado no esta registrado en el sistema");
         }
-
-        CustomerCompany customerCompany = customerCompanyRepository.getReferenceById(customer.getId());
-        if(customer.getCuit() != customerCompany.getCuit()){
-            if(!customerCompanyRepository.existsByCuit(customer.getCuit())){
-                throw new AlreadyExistException("Ya existe un cliente con el cuit ingresado");
-            }
-        }
+        
         Persona cus = customerCompanyMapper.customerParticularDtoToPersona(customer);
         Customer cust = customerCompanyMapper.customerCompanyDtoToCustomer(customer);
         CustomerCompany particular = customerCompanyMapper.customerCompanyDtoToCustomerCompany(customer);
         Persona personaSaved = personaRepository.save(cus);
         cust.setPersona(personaSaved);
+        cust.setId(personaSaved.getId());
         Customer custSaved = customerRepository.save(cust);
         particular.setCustomer(custSaved);
+        particular.setId(personaSaved.getId());
         customerCompanyRepository.save(particular);
         customer.setPostalCode(customer.getPostalCode());
         customer.setId(personaSaved.getId());
